@@ -1,0 +1,12 @@
+{
+  "name": "cryptomark3t",
+  "version": "1.0.0",
+  "description": "Project for the Ethereum Developer Program",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
