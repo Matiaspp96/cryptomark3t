@@ -4,7 +4,6 @@ import { createSlice } from '@reduxjs/toolkit';
 export const UserEmptyState: User = {
     name: '',
     walletAddress: '',
-    provider: '',
     chainId: 0
 };
 
@@ -13,10 +12,15 @@ export const userSlice = createSlice({
     initialState: UserEmptyState,
     reducers: {
         loginUser: (_state, action) => {
+            console.log('loginUser action', action)
             const { address, provider, chainId } = action.payload
+
+            window.localStorage.setItem('walletAddress', address)
             return { ..._state, walletAddress: address, provider, chainId }
         },
-        logoutUser: (_state, action) => ({ ..._state, ...action.payload }),
+        logoutUser: (_state, _action) => {
+            return { ..._state, walletAddress: '', provider: '', chainId: 0 }
+        },
         resetUser: () => UserEmptyState
     }
 });

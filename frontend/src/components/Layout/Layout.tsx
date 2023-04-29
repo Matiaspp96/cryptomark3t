@@ -1,0 +1,17 @@
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import { NavBar } from '../NavBar';
+import './Layout.css';
+
+export type LayoutProps = {};
+
+const Layout: React.FC<LayoutProps> = () => {
+	return (
+		<main className='flex flex-col w-full h-full gradient-bg'>
+			<NavBar />
+			<Outlet />
+		</main>
+	);
+};
+
+export default Layout;
