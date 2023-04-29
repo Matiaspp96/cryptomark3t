@@ -3,19 +3,13 @@ import { loginUser } from '@/redux/states/user';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-	Connector,
-	useAccount,
-	useBalance,
-	useConnect,
-	useDisconnect,
-} from 'wagmi';
+import { Connector, useAccount, useConnect, useDisconnect } from 'wagmi';
 
 const Profile: React.FC = () => {
 	const { address, isConnected, connector } = useAccount();
-	const { data, isError, isLoading } = useBalance({
-		address,
-	});
+	// const { data, isError, isLoading } = useBalance({
+	// 	address,
+	// });
 	const { connect, connectors, error } = useConnect();
 	const { disconnect } = useDisconnect();
 	const dispatch = useDispatch();
