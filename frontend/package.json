@@ -16,6 +16,7 @@
     "@web3auth/openlogin-adapter": "^5.1.1",
     "@web3auth/torus-wallet-connector-plugin": "^5.1.0",
     "@web3auth/web3auth-wagmi-connector": "^3.0.1",
+    "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",

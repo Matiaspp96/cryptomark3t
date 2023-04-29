@@ -1,15 +1,15 @@
 import React from 'react';
 
 // WAGMI Libraries
-import { WagmiConfig as Wagmi, createClient, configureChains } from 'wagmi';
-import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
+import { WagmiConfig as Wagmi, configureChains, createClient } from 'wagmi';
+import { polygonMumbai } from 'wagmi/chains';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
 
 import Web3AuthConnectorInstance from './_Web3AuthConnectorInstance';
 
 const { chains, provider, webSocketProvider } = configureChains(
 	[polygonMumbai],
-	[publicProvider()]
+	[alchemyProvider({ apiKey: '' })]
 );
 
 const client = createClient({
