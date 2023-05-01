@@ -7,9 +7,6 @@ import { Connector, useAccount, useConnect, useDisconnect } from 'wagmi';
 
 const Profile: React.FC = () => {
 	const { address, isConnected, connector } = useAccount();
-	// const { data, isError, isLoading } = useBalance({
-	// 	address,
-	// });
 	const { connect, connectors, error } = useConnect();
 	const { disconnect } = useDisconnect();
 	const dispatch = useDispatch();
