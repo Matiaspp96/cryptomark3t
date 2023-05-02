@@ -9,11 +9,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.9.5",
-    "@web3auth/modal": "^5.1.1",
-    "react-redux": "^8.0.5",
-    "wagmi": "^0.12.12"
-  }
+  "license": "ISC"
 }
