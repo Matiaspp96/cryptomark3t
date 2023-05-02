@@ -7,16 +7,15 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 
 import Web3AuthConnectorInstance from './_Web3AuthConnectorInstance';
 
-const { chains, provider, webSocketProvider } = configureChains(
+const { chains, provider } = configureChains(
 	[polygonMumbai],
-	[alchemyProvider({ apiKey: '' })]
+	[alchemyProvider({ apiKey: import.meta.env.VITE_ALCHEMY_API_KEY as string })]
 );
 
 const client = createClient({
 	autoConnect: true,
 	connectors: [Web3AuthConnectorInstance(chains)],
 	provider,
-	webSocketProvider,
 });
 
 type WagmiConfigProps = {
