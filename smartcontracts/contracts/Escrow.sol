@@ -13,7 +13,7 @@ contract Escrow is ReentrancyGuard {
     address public tokenAddress;
     IERC20 public token;
     uint256 private amountToDelivery;
-    uint256 private _plataformFee;
+    uint256 public _platformFee = 800;
     bool public _activatedByBuyer = false;
     bool public _deliveryBySeller = false;
     bool public _deliveryByBuyer = false;
@@ -80,10 +80,10 @@ contract Escrow is ReentrancyGuard {
         _ownerMarketplace = _marketplace;
     }
 
-    function pay(address _buyer, uint256 _amountToDelivery)
-        public
-        inStatus(Status.Created)
-    {
+    function pay(
+        address _buyer,
+        uint256 _amountToDelivery
+    ) public inStatus(Status.Created) {
         require(_activatedByBuyer == false, "Already activated by buyer");
         require(Status.Paid != status, "Already paid");
         buyer = _buyer;
@@ -126,11 +126,14 @@ contract Escrow is ReentrancyGuard {
 
     function finishContract() internal {
         require(!_finished, "Contract already finished");
-        if (_deliveryByBuyer == true && _deliveryByDelivery == true) {
+        if (
+            _deliveryByBuyer == true ||
+            (_deliveryBySeller == true && _deliveryByDelivery == true)
+        ) {
             _finished = true;
             status = Status.Delivered;
             emit Delivered();
-            uint256 plaformFee = (amount * _plataformFee) / 10000;
+            uint256 plaformFee = (amount * _platformFee) / 10000;
             uint256 amountToSeller = amount - plaformFee;
             token.transfer(seller, amountToSeller);
             token.transfer(delivery, amountToDelivery);
@@ -148,13 +151,9 @@ contract Escrow is ReentrancyGuard {
         emit Resolved();
     }
 
-    function setPlataformFee(uint256 plataformFee) public onlyOwnerMarketplace {
-        _plataformFee = plataformFee;
-    }
-
     function withdraw() public onlyOwnerMarketplace {
         require(_finished, "Contract not finished");
-        uint256 plaformFee = (amount * _plataformFee) / 10000;
+        uint256 plaformFee = (amount * _platformFee) / 10000;
         uint256 amountToSeller = amount - plaformFee;
         token.transfer(seller, amountToSeller);
         token.transfer(delivery, amountToDelivery);
@@ -173,6 +172,11 @@ contract Escrow is ReentrancyGuard {
         status = Status.Resolved;
         emit Resolved();
         token.transfer(buyer, amount + amountToDelivery);
+    }
+
+    /* Setter */
+    function setPlatformFee(uint256 platformFee) public onlyOwnerMarketplace {
+        _platformFee = platformFee;
     }
 
     /* Getters */
