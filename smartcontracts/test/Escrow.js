@@ -109,15 +109,20 @@ describe("Escrow", async () => {
 
       describe("Complete", async () => {
         const platformFee = AMOUNT.mul(PLATFORM_FEE_BPS).div(10000);
+
         beforeEach(async () => {
           await escrow.connect(seller).deliveredBySeller();
         });
+
         it("Should allow the seller to mark the item as shipped but not completed", async () => {
           expect(await escrow._deliveryBySeller()).to.equal(true);
           expect(await escrow._finished()).to.equal(false);
         });
 
         it("Should allow the buyer to mark the item as recieve and completed", async () => {
+          const initialBeneficiaryBalance = await token.balanceOf(
+            deployer.address
+          );
           expect(await escrow.connect(buyer).deliveredByBuyer()).to.emit(
             escrow,
             "Completed"
@@ -129,9 +134,15 @@ describe("Escrow", async () => {
           expect(await token.balanceOf(delivery.address)).to.equal(
             AMOUNTBYDELIVERY
           );
+          expect(await token.balanceOf(deployer.address)).to.equal(
+            initialBeneficiaryBalance.add(platformFee)
+          );
         });
 
         it("Should allow the delivery to mark the item as delivered and completed", async () => {
+          const initialBeneficiaryBalance = await token.balanceOf(
+            deployer.address
+          );
           expect(await escrow.connect(delivery).deliveredByDelivery()).to.emit(
             escrow,
             "Completed"
@@ -142,6 +153,9 @@ describe("Escrow", async () => {
           );
           expect(await token.balanceOf(delivery.address)).to.equal(
             AMOUNTBYDELIVERY
+          );
+          expect(await token.balanceOf(deployer.address)).to.equal(
+            initialBeneficiaryBalance.add(platformFee)
           );
         });
       });
