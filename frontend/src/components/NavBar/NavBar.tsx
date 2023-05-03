@@ -1,4 +1,5 @@
 // WAGMI Libraries
+import { PublicRoutes } from '@/models';
 import { loginUser } from '@/redux/states/user';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -6,10 +7,10 @@ import { Link } from 'react-router-dom';
 import { Connector, useAccount, useConnect, useDisconnect } from 'wagmi';
 
 const Profile: React.FC = () => {
+	const dispatch = useDispatch();
 	const { address, isConnected, connector } = useAccount();
 	const { connect, connectors, error } = useConnect();
 	const { disconnect } = useDisconnect();
-	const dispatch = useDispatch();
 
 	const handleConnect = async (connector: Connector) => {
 		try {
@@ -63,7 +64,7 @@ const Profile: React.FC = () => {
 						</button>
 					);
 				})}
-				{error && <div>{error.message}</div>}
+				{/* {error && <div>{error.message}</div>} */}
 			</div>
 		);
 	}
@@ -75,13 +76,13 @@ export const NavBar: React.FC = () => {
 			<h3 className='text-4xl font-breul font-bold'>Crypto Mark3t</h3>
 			<ul className='flex gap-2 justify-between list-none items-center h-full'>
 				<li className='font-breul text-xl'>
-					<Link to={'/'}>Home</Link>
+					<Link to={PublicRoutes.ROOT}>Home</Link>
 				</li>
 				<li className='font-breul text-xl'>
-					<Link to={'/explore'}>Marketplace</Link>
+					<Link to={PublicRoutes.EXPLORE}>Marketplace</Link>
 				</li>
 				<li className='font-breul text-xl'>
-					<Link to={'/favorites'}>Favorites</Link>
+					<Link to={PublicRoutes.FAVORITES}>Favorites</Link>
 				</li>
 				<Profile />
 			</ul>
