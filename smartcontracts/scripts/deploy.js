@@ -4,27 +4,42 @@
 // You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
+require("dotenv").config();
+const { utils } = require("ethers");
 const hre = require("hardhat");
 
+const { PUBLIC_KEY_SELLER, PUBLIC_KEY_MARKETPLACE } = process.env;
+const tokenAddress = "0xC7932824AdF77761CaB1988e6B886eEe90D35666";
+const Product = {
+  id: 1,
+  name: "Product 1",
+  description: "Description 1",
+  price: ethers.utils.parseEther("100"),
+  seller: "0x206b098F8507880D07045A8eEDde37dC63a15dF5",
+  isSold: false,
+};
+
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
+  const Factory = await hre.ethers.getContractFactory("EscrowFactory");
+  const factory = await Factory.deploy(PUBLIC_KEY_MARKETPLACE);
 
-  const lockedAmount = hre.ethers.utils.parseEther("1");
-
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
-
-  await lock.deployed();
-
-  console.log(
-    `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-  );
+  console.log("Escrow deployed to:", factory.address);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
+async function escrow() {
+  const Escrow = await hre.ethers.getContractFactory("Escrow");
+  const escrow = await Escrow.deploy(
+    PUBLIC_KEY_SELLER,
+    utils.parseEther("0.05"),
+    tokenAddress,
+    Product,
+    PUBLIC_KEY_MARKETPLACE
+  ); // Args: address _seller, uint256 _amount, address _tokenAddress, Product memory _product, address _marketplace
+
+  await escrow.deployed();
+  console.log("Escrow deployed to:", escrow.address);
+}
+
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
