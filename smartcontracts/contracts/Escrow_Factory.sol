@@ -2,8 +2,9 @@
 pragma solidity ^0.8.7;
 
 import "./Escrow.sol";
+import "./interfaces/IProduct.sol";
 
-contract EscrowFactory {
+contract EscrowFactory is IProduct {
     address[] public allEscrows;
     address private _ownerMarketplace;
     mapping(address => bool) public whitelistTokens;
@@ -12,7 +13,8 @@ contract EscrowFactory {
         address escrowAddress,
         address seller,
         uint256 amount,
-        address token
+        address token,
+        Product product
     );
 
     modifier onlyOwnerMarketplace() {
@@ -31,10 +33,9 @@ contract EscrowFactory {
         whitelistTokens[token] = true;
     }
 
-    function removeTokenFromWhitelist(address token)
-        public
-        onlyOwnerMarketplace
-    {
+    function removeTokenFromWhitelist(
+        address token
+    ) public onlyOwnerMarketplace {
         whitelistTokens[token] = false;
     }
 
@@ -45,11 +46,18 @@ contract EscrowFactory {
     function createEscrow(
         address seller,
         uint256 amount,
-        address token
+        address token,
+        Product memory product
     ) public onlyOwnerMarketplace returns (address) {
-        Escrow newEscrow = new Escrow(seller, amount, token, _ownerMarketplace);
+        Escrow newEscrow = new Escrow(
+            seller,
+            amount,
+            token,
+            product,
+            _ownerMarketplace
+        );
         allEscrows.push(address(newEscrow));
-        emit EscrowCreated(address(newEscrow), seller, amount, token);
+        emit EscrowCreated(address(newEscrow), seller, amount, token, product);
         return address(newEscrow);
     }
 

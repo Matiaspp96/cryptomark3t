@@ -7,6 +7,14 @@ require("@nomicfoundation/hardhat-chai-matchers");
 const AMOUNT = ethers.utils.parseEther("10");
 const AMOUNTBYDELIVERY = ethers.utils.parseEther("5");
 const PLATFORM_FEE_BPS = 800; // 8%
+const Product = {
+  id: 1,
+  name: "Product 1",
+  description: "Description 1",
+  price: ethers.utils.parseEther("100"),
+  seller: "0x206b098F8507880D07045A8eEDde37dC63a15dF5",
+  isSold: false,
+};
 
 async function fixture() {
   const [deployer, seller] = await ethers.getSigners();
@@ -21,6 +29,7 @@ async function fixture() {
     seller.address,
     AMOUNT,
     token.address,
+    Product,
     deployer.address
   );
   await escrow.deployed();
@@ -49,7 +58,8 @@ describe("Factory", async () => {
     const tx = await escrowFactory.createEscrow(
       seller.address,
       AMOUNT,
-      token.address
+      token.address,
+      Product
     );
     const receipt = await tx.wait();
     const escrows = await escrowFactory.getAllEscrows();
@@ -64,7 +74,7 @@ describe("Factory", async () => {
     await expect(
       escrowFactory
         .connect(buyer)
-        .createEscrow(sellerAddress, amount, tokenAddress)
+        .createEscrow(sellerAddress, amount, tokenAddress, Product)
     ).to.be.revertedWith(
       "Only the owner of the marketplace can call this function"
     );

@@ -5,8 +5,8 @@ export type Product = {
     name: string;
     price: number;
     description: string;
-    sold: boolean;
-    owner: User;
+    isSold: boolean;
+    seller: User;
     transactions: Transaction[];
     stateTransaction: string;
 }

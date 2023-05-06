@@ -3,14 +3,16 @@ pragma solidity ^0.8.7;
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./interfaces/IProduct.sol";
 
-contract Escrow is ReentrancyGuard {
+contract Escrow is ReentrancyGuard, IProduct {
     address public seller;
     address public buyer;
     uint256 public amount;
     address public delivery;
     address private _ownerMarketplace;
     address public tokenAddress;
+    Product public product;
     IERC20 public token;
     uint256 private amountToDelivery;
     uint256 public _platformFee = 800;
@@ -26,7 +28,8 @@ contract Escrow is ReentrancyGuard {
         Sending,
         Delivered,
         Disputed,
-        Resolved
+        Resolved,
+        Canceled
     }
     Status public status = Status.Created;
 
@@ -35,6 +38,7 @@ contract Escrow is ReentrancyGuard {
     event Delivered();
     event Disputed();
     event Resolved();
+    event Canceled();
 
     modifier onlyBuyer() {
         require(msg.sender == buyer, "Only the buyer can call this function");
@@ -71,12 +75,14 @@ contract Escrow is ReentrancyGuard {
         address _seller,
         uint256 _amount,
         address _tokenAddress,
+        Product memory _product,
         address _marketplace
     ) {
         seller = _seller;
         amount = _amount;
         tokenAddress = _tokenAddress;
         token = IERC20(tokenAddress);
+        product = _product;
         _ownerMarketplace = _marketplace;
     }
 
@@ -130,14 +136,14 @@ contract Escrow is ReentrancyGuard {
             _deliveryByBuyer == true ||
             (_deliveryBySeller == true && _deliveryByDelivery == true)
         ) {
-            _finished = true;
-            status = Status.Delivered;
-            emit Delivered();
             uint256 plaformFee = (amount * _platformFee) / 10000;
             uint256 amountToSeller = amount - plaformFee;
             token.transfer(seller, amountToSeller);
             token.transfer(delivery, amountToDelivery);
             token.transfer(_ownerMarketplace, plaformFee);
+            _finished = true;
+            status = Status.Delivered;
+            emit Delivered();
         }
     }
 
@@ -158,20 +164,22 @@ contract Escrow is ReentrancyGuard {
         token.transfer(seller, amountToSeller);
         token.transfer(delivery, amountToDelivery);
         token.transfer(_ownerMarketplace, plaformFee);
+        _finished = true;
+        emit Resolved();
     }
 
     function cancelByBuyer() public onlyBuyer inStatus(Status.Paid) {
         require(!_finished, "Contract already finished");
-        status = Status.Resolved;
-        emit Resolved();
         token.transfer(buyer, amount + amountToDelivery);
+        status = Status.Canceled;
+        emit Canceled();
     }
 
     function cancelBySeller() public onlySeller inStatus(Status.Paid) {
         require(!_finished, "Contract already finished");
-        status = Status.Resolved;
-        emit Resolved();
         token.transfer(buyer, amount + amountToDelivery);
+        status = Status.Canceled;
+        emit Canceled();
     }
 
     /* Setter */

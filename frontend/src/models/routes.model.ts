@@ -4,3 +4,10 @@ export const PublicRoutes = {
     EXPLORE: '/explore',
     ABOUT: '/about',
 };
+
+export const PrivateRoutes = {
+    ROOT: '/user',
+    PUBLISH: '/publish',
+    PROFILE: '/profile',
+    PRODUCTS: '/products',
+}

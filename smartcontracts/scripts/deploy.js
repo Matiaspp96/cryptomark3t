@@ -10,6 +10,14 @@ const hre = require("hardhat");
 
 const { PUBLIC_KEY_SELLER, PUBLIC_KEY_MARKETPLACE } = process.env;
 const tokenAddress = "0xC7932824AdF77761CaB1988e6B886eEe90D35666";
+const Product = {
+  id: 1,
+  name: "Product 1",
+  description: "Description 1",
+  price: ethers.utils.parseEther("100"),
+  seller: "0x206b098F8507880D07045A8eEDde37dC63a15dF5",
+  isSold: false,
+};
 
 async function main() {
   const Factory = await hre.ethers.getContractFactory("EscrowFactory");
@@ -24,8 +32,9 @@ async function escrow() {
     PUBLIC_KEY_SELLER,
     utils.parseEther("0.05"),
     tokenAddress,
+    Product,
     PUBLIC_KEY_MARKETPLACE
-  ); // Args: address _seller, uint256 _amount, address _tokenAddress, address _marketplace
+  ); // Args: address _seller, uint256 _amount, address _tokenAddress, Product memory _product, address _marketplace
 
   await escrow.deployed();
   console.log("Escrow deployed to:", escrow.address);
