@@ -2,15 +2,23 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Product {
-    price: number;
-    description: string;
-    save(newProduct: Product): Product | PromiseLike<Product> {
-        throw new Error('Method not implemented.');
-    }
+    // price: number;
+    // description: string;
+    // save(newProduct: Product): Product | PromiseLike<Product> {
+        
+    //     return 
+    // }
   @PrimaryGeneratedColumn()
   id: number;
-    name: string;
     user: any;
+    @Column()
+    name: string;
+  
+    @Column()
+    description: string;
+  
+    @Column()
+    price: number;
+    
 
-  // Resto de las columnas aquí
 }

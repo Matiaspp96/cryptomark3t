@@ -15,6 +15,7 @@ import {
     async createProduct(
       @Body() createProductDto: CreateProductDto,
     ): Promise<Product> {
+        
       return await this.productsService.createProduct(createProductDto);
     }
   }
