@@ -8,7 +8,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
-    private readonly productRepository: Product,
+    private productRepository: Repository<Product>,
   ) {}
 
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
@@ -16,7 +16,7 @@ export class ProductsService {
     newProduct.name = createProductDto.name;
     newProduct.description = createProductDto.description;
     newProduct.price = createProductDto.price;
-
+console.log(newProduct)
     return await this.productRepository.save(newProduct);
   }
 }
