@@ -1,38 +1,29 @@
-
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
-import { Product } from '../products/product.entity';
 
 @Injectable()
 export class UsersService {
+//   findByUsername:any;
+
   constructor(
     @InjectRepository(User)
-    private userRepository: Repository<User>,
-    @InjectRepository(Product)
-    private productRepository: Repository<Product>,
+    private readonly userRepository: Repository<User>,
   ) {}
 
-  async createUser() {
-    const user = new User();
-    user.username = 'test_user';
-    user.email = 'test@example.com';
-    user.password_hash = 'hashed_password';
-
-    const product = new Product();
-    product.name = 'Test Product';
-    // product.description = 'A test product';
-    // product.price = 10;
-    // product.stock = 100;
-    // product.user = user;
-
-    await this.productRepository.save(product);
-
-    return await this.userRepository.save(user);
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const newUser = this.userRepository.create(createUserDto);
+    await this.userRepository.save(newUser);
+    return newUser;
   }
-
-  async findAll() {
-    return await this.userRepository.find({ relations: ['products'] });
+ async findAll(): Promise<User[]> {
+    return await this.userRepository.find();
   }
+  async findByUsername(name: string): Promise<User| undefined>  {
+    console.log(`UsersService: finding by name ${name}`); 
+    return await this.userRepository.findOne({  where: { name }});
+  }
+  
 }
