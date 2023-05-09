@@ -1,7 +1,7 @@
 import { User } from '@/models';
 import { createSlice } from '@reduxjs/toolkit';
 
-export const UserEmptyState: User = {
+export const UserEmptyState: Partial<User> = {
     name: '',
     walletAddress: '',
     chainId: 0
@@ -12,15 +12,16 @@ export const userSlice = createSlice({
     initialState: UserEmptyState,
     reducers: {
         loginUser: (_state, action) => {
-            console.log('loginUser action', action)
             const { address, provider, chainId } = action.payload
 
             window.localStorage.setItem('walletAddress', address)
             return { ..._state, walletAddress: address, provider, chainId }
         },
         logoutUser: (_state, _action) => {
-            return { ..._state, walletAddress: '', provider: '', chainId: 0 }
+            window.localStorage.removeItem('walletAddress')
+            return UserEmptyState
         },
+        updateUser: (_state, action) => ({ ..._state, ...action.payload }),
         resetUser: () => UserEmptyState
     }
 });

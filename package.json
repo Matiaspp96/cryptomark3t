@@ -9,6 +9,7 @@
   },
   "keywords": [],
   "author": "",
+
   "license": "ISC",
   "dependencies": {
     "@nestjs/jwt": "^10.0.3",
@@ -20,4 +21,4 @@
     "react-redux": "^8.0.5",
     "wagmi": "^0.12.12"
   }
-}
+
