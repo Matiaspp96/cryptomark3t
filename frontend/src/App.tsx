@@ -5,10 +5,10 @@ import WagmiConfig from '@/web3/WagmiConfig.tsx';
 import { lazy, Suspense } from 'react';
 import { Provider } from 'react-redux';
 import {
-	Route,
-	RouterProvider,
 	createBrowserRouter,
 	createRoutesFromElements,
+	Route,
+	RouterProvider,
 } from 'react-router-dom';
 
 import Layout from '@/components/Layout/Layout.tsx';
@@ -19,6 +19,7 @@ const Home = lazy(async () => await import('@/pages/Home/Home.tsx'));
 const Favorites = lazy(
 	async () => await import('@/pages/Favorites/Favorites.tsx')
 );
+const Explore = lazy(async () => await import('@/pages/Explore/Explore.tsx'));
 const Private = lazy(async () => await import('@/pages/Private/Private.tsx'));
 const ErrorBoundary = lazy(
 	async () => await import('@/utilities/ErrorBoundary.tsx')
@@ -28,7 +29,7 @@ const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path={PublicRoutes.ROOT} element={<Layout />}>
 			<Route index element={<Home />} />
-			<Route path={PublicRoutes.EXPLORE} element={<div>Explore</div>} />
+			<Route path={PublicRoutes.EXPLORE} element={<Explore />} />
 			<Route path={PublicRoutes.FAVORITES} element={<Favorites />} />
 			<Route path={PublicRoutes.ABOUT} element={<div>About</div>} />
 			<Route element={<AuthGuard privateValidation={true} />}>

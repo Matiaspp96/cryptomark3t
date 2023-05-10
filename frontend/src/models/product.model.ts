@@ -4,9 +4,14 @@ export type Product = {
     id: number;
     name: string;
     price: number;
+    category: string;
     description: string;
+    rating: number;
     isSold: boolean;
-    seller: User;
+    seller: User | string;
     transactions: Transaction[];
     stateTransaction: string;
+    thumbnail: string;
+    images: string[];
+    createdAt: Date;
 }

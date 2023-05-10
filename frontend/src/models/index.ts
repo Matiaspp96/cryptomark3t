@@ -1,3 +1,4 @@
+export * from './axios-call.model';
 export * from './product.model';
 export * from './roles.model';
 export * from './routes.model';

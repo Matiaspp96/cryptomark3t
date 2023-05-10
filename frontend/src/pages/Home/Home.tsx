@@ -29,7 +29,7 @@ const Home: React.FC<HomeProps> = () => {
 
 	return (
 		<div>
-			<button
+			{/* <button
 				className='
 			px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75
 			'
@@ -40,7 +40,7 @@ const Home: React.FC<HomeProps> = () => {
 			</button>
 			<input type='number' onChange={e => setNumber(Number(e.target.value))} />
 			{isLoading && <div>Check Wallet</div>}
-			{isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
+			{isSuccess && <div>Transaction: {JSON.stringify(data)}</div>} */}
 		</div>
 	);
 };
