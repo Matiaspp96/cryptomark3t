@@ -7,7 +7,7 @@ export type LayoutProps = {};
 
 const Layout: React.FC<LayoutProps> = () => {
 	return (
-		<main className='flex flex-col w-full h-full gradient-bg'>
+		<main className='flex flex-col h-full w-screen gradient-bg'>
 			<NavBar />
 			<Outlet />
 		</main>

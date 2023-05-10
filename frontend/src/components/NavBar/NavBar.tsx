@@ -51,7 +51,7 @@ const Profile: React.FC = () => {
 
 export const NavBar: React.FC = () => {
 	return (
-		<nav className='flex max-h-[80px] min-w-[100vw] items-center p-5 justify justify-between'>
+		<nav className='flex max-h-[80px] container mx-auto items-center p-5 justify justify-between'>
 			<h3 className='text-4xl font-breul font-bold'>Crypto Mark3t</h3>
 			<ul className='flex gap-2 justify-between list-none items-center h-full'>
 				<li className='font-breul text-xl'>
