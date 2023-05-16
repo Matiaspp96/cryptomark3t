@@ -1,29 +1,17 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  OneToMany,
-} from 'typeorm';
-import { Product } from '../products/product.entity';
+import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
 
-@Entity()
+@Entity('users')
+@Unique(['email'])
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
-  username: string;
+  @Column()
+  name: string;
 
   @Column()
-  password_hash: string;
-
-  @Column({ unique: true })
   email: string;
 
-  @CreateDateColumn()
-  created_at: Date;
-
-  @OneToMany(() => Product, (product) => product.user)
-  products: Product[];
+  @Column()
+  password: string;
 }
