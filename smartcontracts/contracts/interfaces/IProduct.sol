@@ -9,5 +9,8 @@ interface IProduct {
         uint256 price;
         address seller;
         bool isSold;
+        bytes32 ipfsHash;
+        string category;
+        string image;
     }
 }

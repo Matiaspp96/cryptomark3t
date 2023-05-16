@@ -14,6 +14,8 @@ import {
 import Layout from '@/components/Layout/Layout.tsx';
 import { AuthGuard } from '@/guard';
 import { PrivateRoutes, PublicRoutes } from '@/models';
+import { ApolloProvider } from '@apollo/client';
+import { clientMumbai as client } from './providers/apolloClient';
 
 const Home = lazy(async () => await import('@/pages/Home/Home.tsx'));
 const Favorites = lazy(
@@ -43,11 +45,13 @@ const router = createBrowserRouter(
 const App = () => {
 	return (
 		<Provider store={store}>
-			<WagmiConfig>
-				<Suspense fallback={<div>Loading...</div>}>
-					<RouterProvider router={router} />
-				</Suspense>
-			</WagmiConfig>
+			<ApolloProvider client={client}>
+				<WagmiConfig>
+					<Suspense fallback={<div>Loading...</div>}>
+						<RouterProvider router={router} />
+					</Suspense>
+				</WagmiConfig>
+			</ApolloProvider>
 		</Provider>
 	);
 };

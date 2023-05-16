@@ -1,9 +1,8 @@
-import { Client } from "wagmi";
-import { Product } from "@/models/product.model";
-import axios from "axios";
 import { products } from "@/__mocks__";
-import { loadAbort } from "@/utilities/loadAbort-axios.utility";
 import { categories } from "@/__mocks__/categories.mock";
+import { Product } from "@/models/product.model";
+import { loadAbort } from "@/utilities/loadAbort-axios.utility";
+import { Client } from "wagmi";
 
 interface GetProductsApi {
     data: Partial<Product>[];
@@ -14,7 +13,6 @@ interface GetCategoriesApi {
     data: string[];
     controller: AbortController;
 }
-
 
 export const getUserInfo = async (client: Client) => {
     return await client.connectors[0].options.web3AuthInstance.getUserInfo();

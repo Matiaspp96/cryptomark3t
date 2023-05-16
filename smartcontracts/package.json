@@ -6,7 +6,9 @@
     "compile": "hardhat compile",
     "test": "yarn typechain && hardhat test",
     "coverage": "hardhat coverage",
-    "typechain": "hardhat typechain"
+    "typechain": "hardhat typechain",
+    "verify-factory": "npx hardhat verify --constructor-args scripts/argsFactory.js --network mumbai %npm_config_address%",
+    "verify-escrow": "npx hardhat verify --constructor-args scripts/argsEscrow.js --network mumbai %npm_config_address%"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.3",

@@ -11,3 +11,10 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.js
 ```
+
+# Verify Contracts
+
+```bash
+npm run verify-factory --address=
+npm run verify-escrow --address=
+```

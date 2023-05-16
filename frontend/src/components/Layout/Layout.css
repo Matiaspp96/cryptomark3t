@@ -3,4 +3,6 @@
 	background-image: radial-gradient(at 0% 0%, #392239 0, transparent 50%),
 		radial-gradient(at 50% 0%, #6a2f2f 0, transparent 50%),
 		radial-gradient(at 100% 0%, #722741 0, transparent 50%);
+	background-size: 100% 1500px;
+	background-repeat: no-repeat;
 }

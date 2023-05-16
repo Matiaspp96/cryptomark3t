@@ -6,9 +6,8 @@ import { useSelector } from "react-redux"
 export function useSorts() {
     const { filter } = useSelector((store: AppStore) => store.products)
 
-    const sortProducts = (products: Partial<Product>[]) => {
+    const sortProducts = (products: Product[]) => {
         return products.sort((a, b) => {
-            console.log(filter.sort)
             if (filter.sort === SortBy.LOWEST) {
                 if (a.price && b.price) {
                     console.log(a.price, b.price)
