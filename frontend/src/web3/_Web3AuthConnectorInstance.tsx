@@ -61,10 +61,16 @@ export default function Web3AuthConnectorInstance(chains: Chain[]) {
 	});
 	web3AuthInstance.addPlugin(torusPlugin);
 
-	return new Web3AuthConnector({
-		chains: chains as any,
-		options: {
-			web3AuthInstance,
+	return {
+		Web3Auth: new Web3AuthConnector({
+			chains: chains as any,
+			options: {
+				web3AuthInstance,
+			},
+		}),
+		getUserInfo: async () => {
+			const userInfo = await web3AuthInstance?.getUserInfo();
+			return userInfo;
 		},
-	});
+	};
 }

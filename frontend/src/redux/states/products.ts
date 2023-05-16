@@ -5,8 +5,16 @@ interface initialProductsProps {
     products: Product[],
     product: Product,
     loading: boolean,
-    error: any,
-    filter: any
+    error: boolean | null,
+    filter: {
+        category: string,
+        minPrice: number,
+        rating: number,
+        sort: string
+    }
+    maxPrice: {
+        [key: string]: string
+    }
 }
 
 export const initialProducts: initialProductsProps = {
@@ -19,7 +27,10 @@ export const initialProducts: initialProductsProps = {
         minPrice: 0,
         rating: 0,
         sort: 'newest'
-    }
+    },
+    maxPrice: {
+        'all': '0',
+    },
 };
 
 export const productsSlice = createSlice({
@@ -44,6 +55,9 @@ export const productsSlice = createSlice({
         getProduct: (state, action) => {
             return { ...state, product: action.payload }
         },
+        setMaxPriceByCategory: (state, action) => {
+            return { ...state, maxPrice: action.payload }
+        },
         loading: (state, action) => {
             return { ...state, loading: action.payload }
         },
@@ -53,6 +67,6 @@ export const productsSlice = createSlice({
     }
 });
 
-export const { getProducts, getProduct, loading, error, filterProductsByCategory, filterProductsByMinPrice, filterProductsByRating, sortProductsBy } = productsSlice.actions;
+export const { getProducts, getProduct, loading, error, filterProductsByCategory, filterProductsByMinPrice, filterProductsByRating, sortProductsBy, setMaxPriceByCategory } = productsSlice.actions;
 
 export default productsSlice.reducer;

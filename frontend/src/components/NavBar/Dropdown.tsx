@@ -77,11 +77,11 @@ const Dropdown = ({ address }: DropdownProps) => {
 									},
 								}}
 							>
-								{items.map(({ label, path }) => (
+								{items.map(({ label, path }, index) => (
 									<Item
 										closeMenu={closeMenu}
 										path={path}
-										key={label}
+										key={index}
 										label={label}
 									/>
 								))}
@@ -109,7 +109,7 @@ const Item = ({
 	label: string;
 	path: string;
 	closeMenu: () => void;
-	key: string;
+	key: string | number;
 }) => {
 	const controls = useAnimationControls();
 
@@ -134,7 +134,6 @@ const Item = ({
 				await closeMenu();
 			}}
 			className='flex w-40 select-none rounded px-2 py-1.5 text-gray-700 dark:text-white data-[highlighted]:bg-zinc-500 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'
-			asChild
 		>
 			<Link className='font-breul text-xl' to={`${PrivateRoutes.ROOT}${path}`}>
 				{label}

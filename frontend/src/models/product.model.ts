@@ -11,7 +11,7 @@ export type Product = {
     seller: User | string;
     transactions: Transaction[];
     stateTransaction: string;
-    thumbnail: string;
+    image: string;
     images: string[];
     createdAt: Date;
 }

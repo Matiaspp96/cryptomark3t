@@ -12,9 +12,11 @@ const { chains, provider } = configureChains(
 	[alchemyProvider({ apiKey: import.meta.env.VITE_ALCHEMY_API_KEY as string })]
 );
 
+export const { Web3Auth, getUserInfo } = Web3AuthConnectorInstance(chains);
+
 const client = createClient({
 	autoConnect: true,
-	connectors: [Web3AuthConnectorInstance(chains)],
+	connectors: [Web3Auth],
 	provider,
 });
 
