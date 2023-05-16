@@ -12,7 +12,6 @@ const PublicValidationFragment = <Navigate replace to={PrivateRoutes.ROOT} />;
 
 export const AuthGuard = ({ privateValidation }: Props) => {
 	const userState = useSelector((store: AppStore) => store.user);
-	console.log(userState.walletAddress, 'userState.walletAddress');
 	return userState.walletAddress ? (
 		privateValidation ? (
 			PrivateValidationFragment

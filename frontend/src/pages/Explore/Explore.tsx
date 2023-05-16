@@ -28,12 +28,14 @@ const Explore: React.FC<ExploreProps> = () => {
 		dispatch(getProducts(data));
 	};
 
-	console.log(getProductsData.data);
-
 	useEffect(() => {
-		if (getProductsData.data) {
+		let isActive = true;
+		if (getProductsData.data && isActive) {
 			adaptProducts(getProductsData.data.productCreateds);
 		}
+		return () => {
+			isActive = false;
+		};
 	}, [getProductsData.data]);
 
 	/* Get Categories */

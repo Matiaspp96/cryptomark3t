@@ -20,9 +20,9 @@ const Home: React.FC<HomeProps> = () => {
 
 	const handleClick = async () => {
 		// try {
-		// 	const user = await getUserInfo(client);
+		// const user = await getUserInfo(client);
 		// 	console.log(user);
-		// 	// await write?.();
+		// 	await write?.();
 		// } catch (error) {
 		// 	console.log(error);
 		// }

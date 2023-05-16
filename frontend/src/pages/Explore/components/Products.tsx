@@ -11,7 +11,7 @@ export type ProductsProps = {};
 
 const Products: React.FC<ProductsProps> = () => {
 	const { products } = useSelector((store: AppStore) => store.products);
-	console.log(products);
+
 	const { filterProducts } = useFilters();
 	const { sortProducts } = useSorts();
 
