@@ -19,7 +19,7 @@ interface ProductsQueryData {
 }
 
 const Explore: React.FC<ExploreProps> = () => {
-	const { loading, callEndpoint } = useFetchAndLoad();
+	const { loading } = useFetchAndLoad();
 	const dispatch = useDispatch();
 
 	/* Get Products */

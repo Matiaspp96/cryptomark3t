@@ -1,45 +1,42 @@
-import Storage from '@/assets/abi/Storage.json';
-import { Product, PublicRoutes } from '@/models';
-import { motion } from 'framer-motion';
-import React, { useState } from 'react';
-import { usePrepareContractWrite } from 'wagmi';
-import OnlineShopingImg from '@/assets/img/Online-Shopping.png';
-import StablesCoins from '@/assets/img/stables.webp';
-import ShopImg from '@/assets/img/Shop.png';
 import Flow from '@/assets/img/Flow.png';
-import { LockClosedIcon } from '@radix-ui/react-icons';
-import { HiOutlineMicrophone } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
+import OnlineShopingImg from '@/assets/img/Online-Shopping.png';
+import ShopImg from '@/assets/img/Shop.png';
+import StablesCoins from '@/assets/img/stables.webp';
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from '@/components/UI/Accordion/Accordion';
+import { PublicRoutes } from '@/models';
+import { LockClosedIcon } from '@radix-ui/react-icons';
+import { motion } from 'framer-motion';
+import React from 'react';
+import { HiOutlineMicrophone } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 export type HomeProps = {};
-const AddressContract = '0x29333F9A6B1Ca909b840067e9F3950782f52aec1';
 
 const Home: React.FC<HomeProps> = () => {
-	const [number, setNumber] = useState<number>(0);
-	const [products, setProducts] = useState<Product[]>([]);
-	const { config } = usePrepareContractWrite({
-		address: AddressContract,
-		abi: Storage,
-		functionName: 'store',
-		args: [number],
-	});
+	// const [number, setNumber] = useState<number>(0);
+	// const [products, setProducts] = useState<Product[]>([]);
+	// const { config } = usePrepareContractWrite({
+	// 	address: AddressContract,
+	// 	abi: Storage,
+	// 	functionName: 'store',
+	// 	args: [number],
+	// });
 	// const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
-	const handleClick = async () => {
-		// try {
-		// const user = await getUserInfo(client);
-		// 	console.log(user);
-		// 	await write?.();
-		// } catch (error) {
-		// 	console.log(error);
-		// }
-	};
+	// const handleClick = async () => {
+	// try {
+	// const user = await getUserInfo(client);
+	// 	console.log(user);
+	// 	await write?.();
+	// } catch (error) {
+	// 	console.log(error);
+	// }
+	// };
 
 	return (
 		<div className='w-screen md:container mx-auto px-4'>

@@ -10,7 +10,7 @@ import Dropdown from './Dropdown';
 const Profile: React.FC = () => {
 	const dispatch = useDispatch();
 	const { address, isConnected, connector } = useAccount();
-	const { connect, connectors, error } = useConnect();
+	const { connect, connectors } = useConnect();
 	const client = useClient();
 
 	const connectorWallet = connectors[0];
@@ -57,7 +57,7 @@ const Profile: React.FC = () => {
 };
 
 export const NavBar: React.FC = () => {
-	const [nav, setNav] = useState(false);
+	// const [nav, setNav] = useState(false);
 	const [scroll, setScroll] = useState(0);
 	const [navChangeBg, setNavChangeBg] = useState<boolean>(false);
 	const navBar = useRef<HTMLDivElement>(null);
@@ -65,9 +65,9 @@ export const NavBar: React.FC = () => {
 
 	console.log(router.pathname === PublicRoutes.ROOT);
 
-	const handleNav = () => {
-		setNav(!nav);
-	};
+	// const handleNav = () => {
+	// 	setNav(!nav);
+	// };
 
 	const controlNavbar = () => {
 		if (typeof window !== 'undefined') {
