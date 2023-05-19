@@ -9,3 +9,8 @@ npm install
 npm start
 
 ![Alt text](swagger.png)
+
+
+recibir email, wallet
+recibir info del producto nuevo, y deployar escrowFactory desde backend
+la imagen del producto en pinata
