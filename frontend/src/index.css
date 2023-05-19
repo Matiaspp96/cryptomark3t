@@ -14,6 +14,36 @@
 	font-weight: 700;
 }
 
+@font-face {
+	font-family: 'Montserrat';
+	src: url('./assets/fonts/Montserrat-Light.ttf');
+	font-weight: 300;
+}
+
+@font-face {
+	font-family: 'Montserrat';
+	src: url('./assets/fonts/Montserrat-Regular.ttf');
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'Montserrat';
+	src: url('./assets/fonts/Montserrat-Medium.ttf');
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: 'Montserrat';
+	src: url('./assets/fonts/Montserrat-Bold.ttf');
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: 'Montserrat';
+	src: url('./assets/fonts/Montserrat-ExtraBold.ttf');
+	font-weight: 800;
+}
+
 :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
