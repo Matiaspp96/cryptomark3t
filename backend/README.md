@@ -12,5 +12,8 @@ npm start
 
 
 recibir email, wallet
-recibir info del producto nuevo, y deployar escrowFactory desde backend
-la imagen del producto en pinata
+recibir info del producto()  y deployar en escrowFactory + escrow desde backend
+la imagen del producto en pinata, de forma individual y array
+
+
+
