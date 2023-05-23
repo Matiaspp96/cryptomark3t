@@ -3,6 +3,7 @@ export const PublicRoutes = {
     ROOT: '/',
     EXPLORE: '/explore',
     ABOUT: '/about',
+    PRODUCT: '/product',
 };
 
 export const PrivateRoutes = {

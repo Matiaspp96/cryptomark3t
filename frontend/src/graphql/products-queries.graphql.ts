@@ -13,3 +13,20 @@ export const getProductsQuery = gql`
 		}
 	}
 `;
+
+export const getProductByIdQuery = gql`
+	query GetProductCreated($id: ID!) {
+		productCreated(id: $id) {
+			  image
+			  ipfsHash
+			  isSold
+			  name
+			  price
+			  productId
+			  seller
+			  description
+			  category
+		}
+	}
+`;
+
