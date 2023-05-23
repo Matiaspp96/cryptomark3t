@@ -5,6 +5,7 @@ module.exports = {
 		extend: {},
 		fontFamily: {
 			'breul': ['Breul Grotesk', 'sans-serif'],
+			'montserrat': ['Montserrat', 'sans-serif'],
 		},
 	},
 	plugins: [],

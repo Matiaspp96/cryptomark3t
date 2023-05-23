@@ -46,7 +46,7 @@ export default function Filter() {
 	return (
 		<div className='flex flex-col gap-5 w-full'>
 			{/* Filter Mid Screen */}
-			<div className='hidden md:flex flex-col bg-zinc-800 p-5 md:h-[430px] rounded-xl'>
+			<div className='hidden md:flex flex-col border border-zinc-700 bg-zinc-800 p-5 md:h-[430px] rounded-xl'>
 				<h2 className='font-bold text-2xl pb-4'>Filters</h2>
 				<form className='flex flex-col gap-4'>
 					<RadioGroup.Root

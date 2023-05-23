@@ -19,7 +19,7 @@ interface ProductsQueryData {
 }
 
 const Explore: React.FC<ExploreProps> = () => {
-	const { loading, callEndpoint } = useFetchAndLoad();
+	const { loading } = useFetchAndLoad();
 	const dispatch = useDispatch();
 
 	/* Get Products */
@@ -46,7 +46,7 @@ const Explore: React.FC<ExploreProps> = () => {
 	useAsync(getCategoriesData, adaptCategories, () => {});
 
 	return (
-		<div className='px-6 container mx-auto mb-10'>
+		<div className='px-6 xl:container mx-auto mb-10'>
 			<div className='flex flex-col md:flex-row gap-5'>
 				<div className='w-full flex gap-2 md:flex md:w-min md:flex-col md:gap-5'>
 					<Filter />

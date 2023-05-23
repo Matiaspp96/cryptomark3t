@@ -16,6 +16,7 @@ import { AuthGuard } from '@/guard';
 import { PrivateRoutes, PublicRoutes } from '@/models';
 import { ApolloProvider } from '@apollo/client';
 import { clientMumbai as client } from './providers/apolloClient';
+import ProductDetail from './pages/ProductDetail/ProductDetail';
 
 const Home = lazy(async () => await import('@/pages/Home/Home.tsx'));
 const Favorites = lazy(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
 		<Route path={PublicRoutes.ROOT} element={<Layout />}>
 			<Route index element={<Home />} />
 			<Route path={PublicRoutes.EXPLORE} element={<Explore />} />
+			<Route path={`${PublicRoutes.PRODUCT}/*`} element={<ProductDetail />} />
 			<Route path={PublicRoutes.FAVORITES} element={<Favorites />} />
 			<Route path={PublicRoutes.ABOUT} element={<div>About</div>} />
 			<Route element={<AuthGuard privateValidation={true} />}>

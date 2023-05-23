@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { useEffect } from 'react';
 
 export const useAsync = (

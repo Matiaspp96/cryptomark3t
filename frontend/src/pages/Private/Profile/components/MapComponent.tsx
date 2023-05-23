@@ -1,6 +1,3 @@
-import useFetchAndLoad from '@/hooks/useFetchAndLoad';
-import { getDirectionApi } from '@/services/public.services';
-import { SewingPinFilledIcon } from '@radix-ui/react-icons';
 import axios from 'axios';
 import { useCallback, useState } from 'react';
 import Map, {
@@ -28,13 +25,13 @@ const MapComponent = ({
 	setState,
 }: MapComponentProps) => {
 	const [newPlace, setNewPlace] = useState<any>(null);
-	const [viewport, setViewport] = useState({
+	const [viewport] = useState({
 		latitude: -26.808285,
 		longitude: -65.21759,
 		zoom: 2,
 	});
 
-	const [events, logEvents] = useState<Record<string, LngLat>>({});
+	const [, logEvents] = useState<Record<string, LngLat>>({});
 
 	const onMarkerDragStart = useCallback((event: MarkerDragEvent) => {
 		logEvents(_events => ({ ..._events, onDragStart: event.lngLat }));

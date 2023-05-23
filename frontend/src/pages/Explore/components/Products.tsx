@@ -1,5 +1,6 @@
 import { useFilters } from '@/hooks/useFilters';
 import { useSorts } from '@/hooks/useSorts';
+import { PublicRoutes } from '@/models';
 import { AppStore } from '@/redux/store';
 import { OpenInNewWindowIcon } from '@radix-ui/react-icons';
 import { Icon } from '@radix-ui/react-select';
@@ -19,24 +20,27 @@ const Products: React.FC<ProductsProps> = () => {
 	const sortedProducts = sortProducts(filteredProducts);
 
 	return (
-		<ul className='max-w-screen-2xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-auto gap-5'>
+		<ul className='max-w-screen-2xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto gap-5'>
 			{sortedProducts.map(product => {
 				return (
 					<li
 						key={product.id}
-						className='h-[430px] rounded-xl bg-zinc-800 p-5 shadow-lg hover:shadow-xl transition duration hover:scale-[1.004]'
+						className='h-[430px] rounded-xl border border-zinc-700 bg-zinc-800 p-5 shadow-lg hover:shadow-xl transition duration hover:scale-[1.004]'
 					>
 						{product.isSold ? (
 							<span className='absolute mt-1 ml-1 bg-rose-500 px-2 rounded-md font-bold text-sm'>
-								Sold
+								Vendido
 							</span>
 						) : (
 							<span className='absolute mt-1 ml-1 bg-emerald-500 px-2 rounded-md font-bold text-sm'>
-								Available
+								Disponible
 							</span>
 						)}
 						<div className='hidden md:block'>
-							<Link to={`/products/${product.id}`} className='h-48'>
+							<Link
+								to={`${PublicRoutes.PRODUCT}/${product.id}`}
+								className='h-48'
+							>
 								<img
 									src={product.image}
 									alt={product.name}
@@ -59,7 +63,7 @@ const Products: React.FC<ProductsProps> = () => {
 									<h2 className='my-2 line-clamp-1 text-xl font-breul'>
 										{product.name}
 									</h2>
-									<Link to={`/products/${product.id}`}>
+									<Link to={`${PublicRoutes.PRODUCT}/${product.id}`}>
 										<Icon className='text-zinc-400'>
 											<OpenInNewWindowIcon className='w-5 h-5' />
 										</Icon>

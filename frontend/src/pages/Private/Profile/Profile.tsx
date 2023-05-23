@@ -1,12 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-import AvatarEditor from 'react-avatar-editor';
 import ProfileVector from '@/assets/img/picture-profile-icon.webp';
-import { Icon } from '@radix-ui/react-select';
-import { PinTopIcon, UploadIcon } from '@radix-ui/react-icons';
-import Map, { Marker } from 'react-map-gl';
-import MapComponent from './components/MapComponent';
-import { useAccount } from 'wagmi';
 import { postUserApi } from '@/services/public.services';
+import { UploadIcon } from '@radix-ui/react-icons';
+import { Icon } from '@radix-ui/react-select';
+import React, { useRef, useState } from 'react';
+import AvatarEditor from 'react-avatar-editor';
+import { useAccount } from 'wagmi';
+import MapComponent from './components/MapComponent';
 
 const Profile = () => {
 	const { address: walletAddress } = useAccount();
@@ -16,7 +15,7 @@ const Profile = () => {
 	const [email, setEmail] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [address, setAddress] = useState<string>('');
-	const [location, setLocation] = useState<any>(null);
+	const [, setLocation] = useState<any>(null);
 	const [city, setCity] = useState('');
 	const [country, setCountry] = useState('');
 	const [zipCode, setZipCode] = useState('');
