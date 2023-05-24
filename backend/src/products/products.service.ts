@@ -20,6 +20,7 @@ export class ProductsService {
     newProduct.name = createProductDto.name;
     newProduct.description = createProductDto.description;
     newProduct.price = createProductDto.price;
+    newProduct.imageUrl = createProductDto.imageUrl;
 console.log(newProduct)
     return await this.productRepository.save(newProduct);
   }
