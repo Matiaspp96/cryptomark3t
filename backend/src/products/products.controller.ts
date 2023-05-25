@@ -68,25 +68,23 @@ async createProduct(
   body.imageUrl = imageUrl;
   // console.log(body)
 
-  async function createEscrow() {
+  async function createEscrow(imageUrl) {
 
+   
+const signer = new Wallet(process.env.PRIVATE_KEY_MARKETPLACE);
     const provider = new ethers.providers.AlchemyProvider(80001, process.env.API_KEY_ALCHEMY)
     const wallet = new ethers.Wallet(process.env.PRIVATE_KEY_MARKETPLACE,  provider);
-    const Factory = await ethers.Contract("EscrowFactory");
-    console.log(Factory)
-    const factory = await Factory.attach(factoryAddress);
-    // const signer = new Wallet(process.env.PRIVATE_KEY_MARKETPLACE);
-    // constractFactory = new ethers.Contract(contractAddress, abi, wallet)
-    ethers.ContractFactory()
+    const factory =  new ethers.Contract(factoryAddress, abi, signer);
+    console.log(factory)
+   
 
-
-    const escrow = await factory.createEscrow(
-      PUBLIC_KEY_SELLER,
-      utils.parseEther("100"),
-      tokenAddress,
-      products
-    );
-    console.log(escrow);
+    // const escrow = await factory.createEscrow(
+    //   PUBLIC_KEY_SELLER,
+    //   utils.parseEther("100"),
+    //   tokenAddress,
+    //   products
+    // );
+    // console.log(escrow);
    
   
     let i = -1;
@@ -96,7 +94,9 @@ async createProduct(
         clearInterval(interval);
         return;
       }
-  
+  const array =  
+  "0x626166796265696479703574633676666a73697337727a696f6b346f366a3663"
+
       const escrow = await factory
         .connect(wallet)
         .createEscrow(
@@ -105,21 +105,21 @@ async createProduct(
           tokenAddress,
           {
             id: products[i].id,
-            name: products[i].name,
-            description: products[i].description,
-            price: products[i].price,
+            name: body.name,
+            description: body.description,
+            price: body.price,
             seller: products[i].seller,
             isSold: products[i].isSold,
-            ipfsHash: imageUrl,
+            ipfsHash: array,
             category: products[i].category,
-            image: products[i].thumbnail,
+            image: imageUrl,
           }
         );
       console.log(escrow);
     }, 2000);
   }
 
-  // createEscrow()
+  createEscrow(imageUrl)
   return await this.productsService.createProduct(body);
 }
 }
