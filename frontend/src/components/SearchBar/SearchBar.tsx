@@ -1,8 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import AutoComplete from './AutoComplete';
+import useSearchProduct from '@/hooks/useSearchProduct';
 
 const SearchBar = () => {
 	const [searchValue, setSearchValue] = useState<string>('');
+	const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+	const searchInputRef = useRef<HTMLInputElement>(null);
+
+	const { searchProduct } = useSearchProduct(searchInputRef);
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		searchProduct();
+		setShowSuggestions(false);
+		setSearchValue('');
+	};
 
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchValue(event.target.value);
@@ -12,8 +24,15 @@ const SearchBar = () => {
 		setSearchValue(suggestion);
 	};
 
+	const handleInputFocus = () => {
+		setShowSuggestions(true);
+	};
+
 	return (
-		<form className='hidden relative md:flex items-center w-1/4 lg:w-1/3 2xl:w-1/2'>
+		<form
+			className='hidden relative md:flex items-center w-1/4 lg:w-1/3 2xl:w-1/2 group'
+			onSubmit={handleSubmit}
+		>
 			<div className='relative w-full'>
 				<div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none '>
 					<svg
@@ -33,11 +52,14 @@ const SearchBar = () => {
 				<input
 					type='text'
 					value={searchValue}
+					ref={searchInputRef}
 					onChange={handleSearchChange}
 					placeholder='Buscar...'
 					id='voice-search'
 					className='bg-zinc-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:border-zinc-700  dark:bg-zinc-800 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:outline-none dark:focus:border-blue-500'
 					required
+					onFocus={handleInputFocus}
+					autoComplete='off'
 				/>
 				<button
 					type='button'
@@ -81,10 +103,12 @@ const SearchBar = () => {
 					<span className='hidden xl:block '>Buscar</span>
 				</div>
 			</button>
-			<AutoComplete
-				searchQuery={searchValue}
-				onSuggestionSelect={handleSuggestionSelect}
-			/>
+			{showSuggestions && (
+				<AutoComplete
+					searchQuery={searchValue}
+					onSuggestionSelect={handleSuggestionSelect}
+				/>
+			)}
 		</form>
 	);
 };

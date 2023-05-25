@@ -1,6 +1,7 @@
+import Spinner from '@/components/Spinner/Spinner';
 import { getProductsQuery } from '@/graphql';
 import { useAsync } from '@/hooks/useAsync';
-import useFetchAndLoad from '@/hooks/useFetchAndLoad';
+import { Product } from '@/models';
 import { getCategories } from '@/redux/states/categories';
 import { getProducts } from '@/redux/states/products';
 import { getCategoriesApi } from '@/services/public.services';
@@ -10,7 +11,6 @@ import { useDispatch } from 'react-redux';
 import { Products } from './components';
 import Filter from './components/Filter';
 import Sort from './components/Sort';
-import { Product } from '@/models';
 
 export type ExploreProps = {};
 
@@ -19,7 +19,6 @@ interface ProductsQueryData {
 }
 
 const Explore: React.FC<ExploreProps> = () => {
-	const { loading } = useFetchAndLoad();
 	const dispatch = useDispatch();
 
 	/* Get Products */
@@ -46,13 +45,13 @@ const Explore: React.FC<ExploreProps> = () => {
 	useAsync(getCategoriesData, adaptCategories, () => {});
 
 	return (
-		<div className='px-6 xl:container mx-auto mb-10'>
+		<div className='px-6 w-screen xl:container mx-auto mb-10'>
 			<div className='flex flex-col md:flex-row gap-5'>
 				<div className='w-full flex gap-2 md:flex md:w-min md:flex-col md:gap-5'>
 					<Filter />
 					<Sort />
 				</div>
-				{loading ? <h1>Loading...</h1> : <Products />}
+				{getProductsData.loading ? <Spinner /> : <Products />}
 			</div>
 		</div>
 	);

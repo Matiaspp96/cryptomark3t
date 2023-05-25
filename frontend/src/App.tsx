@@ -15,8 +15,9 @@ import Layout from '@/components/Layout/Layout.tsx';
 import { AuthGuard } from '@/guard';
 import { PrivateRoutes, PublicRoutes } from '@/models';
 import { ApolloProvider } from '@apollo/client';
-import { clientMumbai as client } from './providers/apolloClient';
+import Loader from '@/components/Layout/Loader';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
+import { clientMumbai as client } from './providers/apolloClient';
 
 const Home = lazy(async () => await import('@/pages/Home/Home.tsx'));
 const Favorites = lazy(
@@ -49,7 +50,7 @@ const App = () => {
 		<Provider store={store}>
 			<ApolloProvider client={client}>
 				<WagmiConfig>
-					<Suspense fallback={<div>Loading...</div>}>
+					<Suspense fallback={<Loader />}>
 						<RouterProvider router={router} />
 					</Suspense>
 				</WagmiConfig>
