@@ -33,6 +33,14 @@ __decorate([
     (0, typeorm_1.Column)({}),
     __metadata("design:type", String)
 ], Product.prototype, "imageUrl", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Product.prototype, "category", void 0);
+__decorate([
+    (0, typeorm_1.Column)({}),
+    __metadata("design:type", String)
+], Product.prototype, "seller", void 0);
 Product = __decorate([
     (0, typeorm_1.Entity)()
 ], Product);

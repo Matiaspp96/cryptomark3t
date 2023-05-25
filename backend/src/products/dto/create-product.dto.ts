@@ -12,4 +12,10 @@ export class CreateProductDto {
 
     @ApiProperty()
     imageUrl: string;
+
+    @ApiProperty()
+    category: string;
+
+    @ApiProperty()
+    seller: string;
   }

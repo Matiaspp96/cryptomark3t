@@ -75,14 +75,14 @@ let ProductsController = class ProductsController {
                 const escrow = await factory
                     .connect(wallet)
                     .createEscrow(EscrowFactory_2.products[i].seller, ethers_1.utils.parseEther(EscrowFactory_2.products[i].price.toString()), tokenAddress, {
-                    id: EscrowFactory_2.products[i].id,
+                    id: 1,
                     name: body.name,
                     description: body.description,
                     price: body.price,
-                    seller: EscrowFactory_2.products[i].seller,
+                    seller: body.seller,
                     isSold: EscrowFactory_2.products[i].isSold,
                     ipfsHash: array,
-                    category: EscrowFactory_2.products[i].category,
+                    category: body.category,
                     image: imageUrl,
                 });
                 console.log(escrow);

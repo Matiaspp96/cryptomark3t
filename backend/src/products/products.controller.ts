@@ -66,6 +66,7 @@ async createProduct(
   let imageUrl = await pinFileToIPFS(file);
 
   body.imageUrl = imageUrl;
+  
   // console.log(body)
 
   async function createEscrow(imageUrl) {
@@ -104,14 +105,14 @@ const signer = new Wallet(process.env.PRIVATE_KEY_MARKETPLACE);
           utils.parseEther(products[i].price.toString()),
           tokenAddress,
           {
-            id: products[i].id,
+            id: 1,
             name: body.name,
             description: body.description,
             price: body.price,
-            seller: products[i].seller,
+            seller: body.seller,
             isSold: products[i].isSold,
             ipfsHash: array,
-            category: products[i].category,
+            category: body.category,
             image: imageUrl,
           }
         );

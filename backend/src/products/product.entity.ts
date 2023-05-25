@@ -18,5 +18,10 @@ export class Product {
     @Column({ }) 
     imageUrl: string;
     
+    @Column()
+    category: string;
+
+    @Column({ }) 
+    seller: string;
 
 }

@@ -21,6 +21,8 @@ export class ProductsService {
     newProduct.description = createProductDto.description;
     newProduct.price = createProductDto.price;
     newProduct.imageUrl = createProductDto.imageUrl;
+    newProduct.category = createProductDto.category;
+    newProduct.seller = createProductDto.seller;
 console.log(newProduct)
     return await this.productRepository.save(newProduct);
   }
