@@ -6,7 +6,8 @@ import { randomBytes } from 'crypto';
 export const multerConfig = {
   
   storage: diskStorage({
-    destination: './uploads',
+    destination:  './uploads',
+    
 
     filename: (req, file, cb) => {
       const randomName = Array(32)

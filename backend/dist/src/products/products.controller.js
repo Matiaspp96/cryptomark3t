@@ -37,7 +37,7 @@ let ProductsController = class ProductsController {
         const createProductDto = body;
         const { PUBLIC_KEY_SELLER, PUBLIC_KEY_MARKETPLACE, API_KEY_ALCHEMY } = process.env;
         const pinFileToIPFS = async (file) => {
-            const readableStreamForFile = fs.createReadStream(file.path);
+            const readableStreamForFile = fs.createReadStream(process.cwd() + "/uploads" + "/1.jpg");
             const options = {
                 pinataMetadata: {
                     name: "product",
