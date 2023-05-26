@@ -24,4 +24,7 @@ export class Product {
     @Column({ }) 
     seller: string;
 
+    @Column({ }) 
+    email: string;
+
 }

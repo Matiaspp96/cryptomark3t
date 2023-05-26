@@ -18,4 +18,7 @@ export class CreateProductDto {
 
     @ApiProperty()
     seller: string;
+
+    @ApiProperty()
+    email: string;
   }
