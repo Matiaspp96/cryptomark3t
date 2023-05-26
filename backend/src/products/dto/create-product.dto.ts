@@ -9,4 +9,13 @@ export class CreateProductDto {
   
     @ApiProperty()
     price: number;
+
+    @ApiProperty()
+    imageUrl: string;
+
+    @ApiProperty()
+    category: string;
+
+    @ApiProperty()
+    seller: string;
   }

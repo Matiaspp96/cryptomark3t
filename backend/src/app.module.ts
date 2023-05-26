@@ -5,7 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { AuthModule } from './auth/auth.module';
-
+import { multerConfig } from "../multer.config"
+import { MulterModule } from '@nestjs/platform-express';
 
 
 @Module({
@@ -16,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    MulterModule.register(multerConfig),
     UsersModule,
     ProductsModule,
     AuthModule,
