@@ -9,9 +9,10 @@ npm install
 npm start
 
 ![Alt text](swagger.png)
+
 ![Alt text](fullProduct.png)
 
 
-recibir email, wallet
+recibir email, wallet (seller)
 
 
