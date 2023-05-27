@@ -2,24 +2,26 @@ import ProfileVector from '@/assets/img/picture-profile-icon.webp';
 import { postUserApi } from '@/services/public.services';
 import { UploadIcon } from '@radix-ui/react-icons';
 import { Icon } from '@radix-ui/react-select';
+import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { useAccount } from 'wagmi';
-import MapComponent from '../Profile/components/MapComponent';
+import imggg from "../../../assets/img/Boxes.png"
+// import MapComponent from '../Profile/components/MapComponent';
 
 const Publish = () => {
 	const { address: walletAddress } = useAccount();
 	const [profileImage, setProfileImage] = useState<File | null>(null);
-	const [fullName, setFullName] = useState('John Doe');
-	const [birthdate, setBirthdate] = useState('');
+	const [fullName, setFullName] = useState('Notebook I9');
+	// const [birthdate, setBirthdate] = useState('');
 	const [email, setEmail] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('');
-	const [address, setAddress] = useState<string>('');
-	const [, setLocation] = useState<any>(null);
-	const [city, setCity] = useState('');
-	const [country, setCountry] = useState('');
-	const [zipCode, setZipCode] = useState('');
-	const [state, setState] = useState('');
+	// const [address, setAddress] = useState<string>('');
+	// const [, setLocation] = useState<any>(null);
+	// const [city, setCity] = useState('');
+	// const [country, setCountry] = useState('');
+	// const [zipCode, setZipCode] = useState('');
+	// const [state, setState] = useState('');
 
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -39,31 +41,52 @@ const Publish = () => {
 		}
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		const user = {
-			'name': fullName,
-			email,
-			'password': walletAddress,
-		};
-		postUserApi(user);
-	};
+	const handleSubmit = async (event: { preventDefault: () => void; }) => {
+        event.preventDefault();
+
+        const formData = new FormData();
+        formData.append('file', imggg);
+        formData.append('email', email);
+        formData.append('description', fullName);
+		formData.append('price', email);
+        formData.append('category', fullName);
+		formData.append('seller', email);
+        formData.append('name', fullName);
+
+        try {
+            const response = await axios.post('http://3.137.166.8:3005/products', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
 	return (
 		<div className='max-w-2xl mx-auto px-4 py-6'>
 			<h1 className='text-xl font-bold mb-4 text-center'>
-				Profile <span className='text-blue-500'>Settings</span>
+				Create a New <span className='text-blue-500'>Product to Sell</span>
 			</h1>
 			<form className='' onSubmit={handleSubmit}>
-				<div className='flex justify-center mb-6'>
+				
+				<div className='grid grid-cols-2 gap-5 mb-10'>
+					<h3 className='col-span-2 text-md font-bold text-left'>
+						Product <span className='text-blue-500'>Information</span>
+					</h3>
+
+
+					<div className='flex justify-center mb-6'>
 					<div className='relative'>
 						<AvatarEditor
 							image={profileImage || ProfileVector}
-							width={150}
-							height={150}
+							width={250}
+							height={250}
 							border={0}
 							ref={handleSaveProfileImage}
-							className='rounded-full'
+							className='rounded-sm'
 						/>
 						<button
 							onClick={() => inputRef.current?.click()}
@@ -83,13 +106,13 @@ const Publish = () => {
 						onChange={handleUploadProfileImage}
 					/>
 				</div>
-				<div className='grid grid-cols-2 gap-5 mb-10'>
-					<h3 className='col-span-2 text-md font-bold text-center'>
-						General <span className='text-blue-500'>Information</span>
-					</h3>
+
+
+
+
 					<div className='flex flex-col gap-1'>
 						<label className='font-breul  font-bold text-white'>
-							Full Name:
+							Product Name
 						</label>
 						<input
 							type='text'
@@ -98,7 +121,7 @@ const Publish = () => {
 							className='border border-gray-400 p-2 rounded-lg focus:outline-none focus:border-blue-500'
 						/>
 					</div>
-					<div className='flex flex-col gap-1'>
+					{/* <div className='flex flex-col gap-1'>
 						<label className='font-breul  font-bold text-white'>
 							Birthdate:
 						</label>
@@ -108,11 +131,11 @@ const Publish = () => {
 							onChange={e => setBirthdate(e.target.value)}
 							className='border border-gray-400 p-2 rounded-lg focus:outline-none focus:border-blue-500'
 						/>
-					</div>
+					</div> */}
 					<div className='flex flex-col gap-1'>
-						<label className='font-breul  font-bold text-white'>Email:</label>
+						<label className='font-breul  font-bold text-white'>Description:</label>
 						<input
-							type='email'
+							type='text'
 							value={email}
 							onChange={e => setEmail(e.target.value)}
 							className='border border-gray-400 p-2 rounded-lg focus:outline-none focus:border-blue-500'
@@ -120,7 +143,7 @@ const Publish = () => {
 					</div>
 					<div className='flex flex-col gap-1'>
 						<label className='font-breul  font-bold text-white'>
-							Phone Number:
+							Price:
 						</label>
 						<input
 							type='tel'
@@ -128,22 +151,25 @@ const Publish = () => {
 							onChange={e => setPhoneNumber(e.target.value)}
 							className='border border-gray-400 p-2 rounded-lg focus:outline-none focus:border-blue-500'
 						/>
-					</div>
+					
 				</div>
-				<h3 className='col-span-2 text-md font-bold text-center mb-5'>
+
+
+				</div>
+				{/* <h3 className='col-span-2 text-md font-bold text-center mb-5'>
 					Address <span className='text-blue-500 '>Information</span>
-				</h3>
-				<div className='aspect-video mb-5'>
-					<MapComponent
+				</h3> */}
+				{/* <div className='aspect-video mb-5'> */}
+					{/* <MapComponent
 						setAddress={setAddress}
 						setLocation={setLocation}
 						setCity={setCity}
 						setCountry={setCountry}
 						setZipCode={setZipCode}
 						setState={setState}
-					/>
-				</div>
-				<div className='grid grid-cols-2 gap-5'>
+					/> */}
+				{/* </div> */}
+				{/* <div className='grid grid-cols-2 gap-5'>
 					<div className='flex flex-col gap-1'>
 						<label className='font-breul  font-bold text-white'>
 							Street Address:
@@ -199,7 +225,7 @@ const Publish = () => {
 							onChange={e => setCountry(e.target.value)}
 						/>
 					</div>
-				</div>
+				</div> */}
 				<button
 					className='mt-8 bg-blue-500 text-white rounded-lg py-2 px-4'
 					type='submit'
