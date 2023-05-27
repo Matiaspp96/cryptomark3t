@@ -32,6 +32,7 @@ export default function Web3AuthConnectorInstance(chains: Chain[]) {
 
 	const openloginAdapterInstance = new OpenloginAdapter({
 		adapterSettings: {
+			network: 'testnet',
 			uxMode: 'popup',
 			whiteLabel: {
 				name: 'Crypto Mark3t',
