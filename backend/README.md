@@ -12,6 +12,5 @@ npm start
 ![Alt text](fullProduct.png)
 
 
-recibir email, wallet
-
+add localidad
 
