@@ -16,7 +16,6 @@ const ProductDetail: React.FC = () => {
 		variables: { id },
 	});
 	const adaptProducts = (data: Product) => {
-		console.log(data);
 		setProduct(data);
 	};
 
@@ -38,34 +37,33 @@ const ProductDetail: React.FC = () => {
 			<h1>Product Detail:</h1>
 			<br />
 			<br />
-			<figure className="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800">
+			<figure className="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800" style={{ backgroundColor: '#27272a'}}>
 				<div className="pt-6 md:p-8">
-					<img className='rounded float-start' src={product.image} alt={product.name} />
+					<img className='rounded float-start' src={product.image} alt={product.name} style={{ width: '420px', height: '370px'}} />
 				</div>
-				<div className="pt-6 md:p-8 text-center md:text-left space-y-4" style={{ position: 'relative' }}>
+				<div className="pt-6 md:p-8 text-center md:text-left space-y-4">
 					<blockquote>
-						<h1 className='text-black'>
+						<h1 className='text-white'>
 							{product.name}
 						</h1>
 						<hr style={{ border: '0.01px solid #2a5880'}}></hr>
 						<br />
 						<div className="md: p-2">
-							<p className='text-black'> 
+							<p className='text-white'> 
 								{product.description}
 							</p>
 						</div>
 					</blockquote>
 					<br />
 					<br />
-					<figcaption className="font-medium" style={{ position: 'absolute', bottom: '2em', width: '100%'}}>
-						<hr style={{ border: '0.01px solid #2a5880', marginRight: '4em' }}></hr>				
+					<figcaption className="font-medium" style={{ width: '100%' }}>
+						<hr style={{ border: '0.01px solid #2a5880' }}></hr>				
 						<div className="text-sky-501 dark:text-sky-500 text-2xl font-semibold">
 							Price: ${product.price}
 						</div>
 					</figcaption>
 				</div>
 			</figure>
-
 		</div>
 	);
 };
