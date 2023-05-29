@@ -3,7 +3,11 @@ http://localhost:3005/api#/
 or
 
 
-http://3.137.166.8:3005/api#/
+
+https://api.0xlean.tech/api
+https://api.0xlean.tech/products
+https://api.0xlean.tech/auth/login
+https://api.0xlean.tech/auth/register
 
 npm install
 npm start
