@@ -1,3 +1,5 @@
+import SheetCart from '@/components/UI/Sheet/SheetCart';
+import { useCart } from '@/hooks/useCart';
 import { useFilters } from '@/hooks/useFilters';
 import { useSorts } from '@/hooks/useSorts';
 import { PublicRoutes } from '@/models';
@@ -14,6 +16,7 @@ const Products: React.FC<ProductsProps> = () => {
 	const { products, searchQuery } = useSelector(
 		(store: AppStore) => store.products
 	);
+	const { addProduct } = useCart();
 
 	const { filterProducts } = useFilters();
 	const { sortProducts } = useSorts();
@@ -62,7 +65,7 @@ const Products: React.FC<ProductsProps> = () => {
 							<img
 								src={product.image}
 								alt={product.name}
-								className='aspect-video object-cover rounded-lg h-48'
+								className='aspect-video object-cover rounded-lg h-48 w-full'
 							/>
 						</div>
 
@@ -84,18 +87,16 @@ const Products: React.FC<ProductsProps> = () => {
 							</div>
 							<div className='flex items-center justify-between mt-2'>
 								<p className='text-md font-bold relative '>$ {product.price}</p>
-								<button
-									className='bg-zinc-900 font-breul text-white px-3 py-1 rounded-md hover:bg-zinc-600 transition duration-300'
-									onClick={() => {
-										if (walletAddress) {
-											console.log('add to cart');
-										} else {
-											console.log('login');
-										}
-									}}
-								>
-									Add to cart
-								</button>
+								<SheetCart>
+									<button
+										className='bg-zinc-900 font-breul text-white px-3 py-1 rounded-md hover:bg-zinc-600 transition duration-300'
+										onClick={() => {
+											addProduct(product);
+										}}
+									>
+										Add to cart
+									</button>
+								</SheetCart>
 							</div>
 						</div>
 					</li>

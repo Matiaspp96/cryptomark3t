@@ -4,12 +4,13 @@ import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDisconnect } from 'wagmi';
+import SheetCart from '../UI/Sheet/SheetCart';
 
 interface DropdownProps {
 	address?: string;
 }
 
-const Dropdown = ({ address }: DropdownProps) => {
+const DropdownWallet = ({ address }: DropdownProps) => {
 	const [open, setOpen] = useState(false);
 	const { disconnect } = useDisconnect();
 	const navigate = useNavigate();
@@ -76,6 +77,7 @@ const Dropdown = ({ address }: DropdownProps) => {
 										transition: { ease: 'easeIn', duration: 0.2 },
 									},
 								}}
+								className='flex flex-col'
 							>
 								{items.map(({ label, path }, index) => (
 									<Item
@@ -85,6 +87,11 @@ const Dropdown = ({ address }: DropdownProps) => {
 										label={label}
 									/>
 								))}
+								<SheetCart>
+									<button className='text-gray-900 px-2 py-1.5 w-40 rounded text-left text-xl font-breul relative items-center justify-center dark:text-white  hover:bg-zinc-600 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'>
+										Cart
+									</button>
+								</SheetCart>
 								<button
 									className='text-gray-900 px-2 py-1.5 w-40 rounded text-left text-xl font-breul relative items-center justify-center dark:text-white  hover:bg-zinc-600 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'
 									onClick={handleDisconnect}
@@ -145,4 +152,4 @@ const Item = ({
 const sleep = (s: number) =>
 	new Promise(resolve => setTimeout(resolve, s * 1000));
 
-export default Dropdown;
+export default DropdownWallet;

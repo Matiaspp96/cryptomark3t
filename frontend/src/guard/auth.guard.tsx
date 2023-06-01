@@ -1,6 +1,5 @@
-import { AppStore } from '@/redux/store';
-import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
+import { useAccount } from 'wagmi';
 import { PrivateRoutes, PublicRoutes } from '../models';
 
 interface Props {
@@ -11,8 +10,8 @@ const PrivateValidationFragment = <Outlet />;
 const PublicValidationFragment = <Navigate replace to={PrivateRoutes.ROOT} />;
 
 export const AuthGuard = ({ privateValidation }: Props) => {
-	const userState = useSelector((store: AppStore) => store.user);
-	return userState.walletAddress ? (
+	const account = useAccount();
+	return account.address ? (
 		privateValidation ? (
 			PrivateValidationFragment
 		) : (

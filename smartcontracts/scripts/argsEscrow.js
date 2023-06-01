@@ -1,16 +1,19 @@
 module.exports = [
-  "0x206b098F8507880D07045A8eEDde37dC63a15dF5",
-  "800000000000000000",
-  "0xC7932824AdF77761CaB1988e6B886eEe90D35666",
+  "0x7c125c1d515b8945841b3d5144a060115c58725f",
+  "30000000000000000000",
+  "0xc7932824adf77761cab1988e6b886eee90d35666",
   {
-    id: 1,
-    name: "Product 1",
-    description: "Description 1",
-    price: 100000000000000000,
-    seller: "0x206b098F8507880D07045A8eEDde37dC63a15dF5",
+    id: 30,
+    name: "Key Holder",
+    description:
+      "Attractive DesignMetallic material four key hooks Reliable & Durable Premium Quality",
+    price: "30",
+    seller: "0x7c125c1d515b8945841b3d5144a060115c58725f",
     isSold: false,
     ipfsHash:
       "0x626166796265696479703574633676666a73697337727a696f6b346f366a3663",
+    category: "home-decoration",
+    image: "https://i.dummyjson.com/data/products/30/thumbnail.jpg",
   },
   "0xd6dd6C7e69D5Fa4178923dAc6A239F336e3c40e3",
 ];

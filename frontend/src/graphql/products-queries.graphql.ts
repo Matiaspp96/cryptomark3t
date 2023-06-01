@@ -10,6 +10,7 @@ export const getProductsQuery = gql`
 			price
 			seller
 			category
+			isSold
 		}
 	}
 `;

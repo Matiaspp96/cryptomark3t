@@ -14,4 +14,6 @@ export type Product = {
     image: string;
     images: string[];
     createdAt: Date;
+    quantity: number;
+    productId: string;
 }
