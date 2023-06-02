@@ -10,3 +10,14 @@ export const getEscrowByIdQuery = gql`
         }
     }
 `;
+
+export const getEscrowByAddressQuery = gql`
+    query GetEscrowByAddress($escrowAddress: String) {
+        escrowCreateds(where: {escrowAddress: $escrowAddress}) {
+            product_name
+            escrowAddress
+            token
+            seller
+        }
+    }
+`;
