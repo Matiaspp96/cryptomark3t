@@ -177,7 +177,7 @@ const Checkout = () => {
 					</h1>
 					{cart.length > 0 &&
 						cart.map(product => (
-							<CardCheckoutProduct product={product} key={product.id} />
+							<CardCheckoutProduct product={product} key={product.productId} />
 						))}
 				</div>
 			</div>

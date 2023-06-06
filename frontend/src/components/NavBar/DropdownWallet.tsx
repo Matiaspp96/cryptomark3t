@@ -2,7 +2,7 @@ import { PrivateRoutes, PublicRoutes } from '@/models';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDisconnect } from 'wagmi';
 import SheetCart from '../UI/Sheet/SheetCart';
 
@@ -15,6 +15,7 @@ const DropdownWallet = ({ address }: DropdownProps) => {
 	const { disconnect } = useDisconnect();
 	const navigate = useNavigate();
 	const controls = useAnimationControls();
+	const router = useLocation();
 
 	async function closeMenu() {
 		await controls.start('closed');
@@ -31,7 +32,7 @@ const DropdownWallet = ({ address }: DropdownProps) => {
 		if (open) {
 			controls.start('open');
 		}
-	}, [controls, open]);
+	}, [controls, open, router.pathname]);
 
 	const items = [
 		{
@@ -79,19 +80,27 @@ const DropdownWallet = ({ address }: DropdownProps) => {
 								}}
 								className='flex flex-col'
 							>
-								{items.map(({ label, path }, index) => (
-									<Item
-										closeMenu={closeMenu}
-										path={path}
-										key={index}
-										label={label}
-									/>
-								))}
-								<SheetCart>
+								{items.map(({ label, path }, index) => {
+									return (
+										<Item
+											closeMenu={closeMenu}
+											path={path}
+											label={label}
+											key={index}
+										/>
+									);
+								})}
+								<SheetCart onCloseMenu={closeMenu}>
 									<button className='text-gray-900 px-2 py-1.5 w-40 rounded text-left text-xl font-breul relative items-center justify-center dark:text-white  hover:bg-zinc-600 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'>
 										Cart
 									</button>
 								</SheetCart>
+								<button
+									className='text-gray-900 px-2 py-1.5 w-40 rounded text-left text-xl font-breul relative items-center justify-center dark:text-white  hover:bg-zinc-600 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'
+									onClick={closeMenu}
+								>
+									Settings
+								</button>
 								<button
 									className='text-gray-900 px-2 py-1.5 w-40 rounded text-left text-xl font-breul relative items-center justify-center dark:text-white  hover:bg-zinc-600 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'
 									onClick={handleDisconnect}
@@ -111,18 +120,15 @@ const Item = ({
 	label,
 	path,
 	closeMenu,
-	key,
 }: {
 	label: string;
 	path: string;
 	closeMenu: () => void;
-	key: string | number;
 }) => {
 	const controls = useAnimationControls();
 
 	return (
 		<DropdownMenu.Item
-			key={key}
 			onSelect={async (e: any) => {
 				e.preventDefault();
 

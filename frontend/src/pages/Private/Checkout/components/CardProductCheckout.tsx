@@ -2,8 +2,10 @@ import EscrowABI from '@/assets/abi/Escrow.json';
 import TokenABI from '@/assets/abi/Token.json';
 import Spinner from '@/components/Spinner/Spinner';
 import { getEscrowByIdQuery } from '@/graphql';
+import { useCart } from '@/hooks/useCart';
 import { Product } from '@/models';
 import { useQuery } from '@apollo/client';
+import { TrashIcon } from '@radix-ui/react-icons';
 import { utils } from 'ethers';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAccount, useContract, useProvider, useSigner } from 'wagmi';
@@ -15,11 +17,15 @@ interface CardCheckoutProductProps {
 const CardCheckoutProduct: React.FC<CardCheckoutProductProps> = ({
 	product,
 }) => {
-	const [escrowAddress, setEscrowAddress] = useState<`0x${string}`>('0x');
+	const [escrowAddress, setEscrowAddress] = useState<`0x${string}`>(
+		'0x53c35a659d8b40d8ab0f2133b5df6a989f2dcf20'
+	);
 	const [tokenAddress, setTokenAddress] = useState<string>('');
 	const [, setSeller] = useState<string>('');
 	const [hasPay, setHasPay] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(false);
+	const [isBuyer, setIsBuyer] = useState<boolean>(false);
+	const { removeProduct, resetCart } = useCart();
 
 	const { data, loading: loadingQuery } = useQuery(getEscrowByIdQuery, {
 		variables: { product_id: product.productId },
@@ -53,6 +59,7 @@ const CardCheckoutProduct: React.FC<CardCheckoutProductProps> = ({
 	});
 
 	const approve = useCallback(async () => {
+		if (!tokenContract) return;
 		const result = await tokenContract
 			?.connect(signer as any)
 			.approve(escrowAddress, utils.parseEther(amountToApprove.toString()));
@@ -61,6 +68,7 @@ const CardCheckoutProduct: React.FC<CardCheckoutProductProps> = ({
 	}, [amountToApprove, amountToDelivery, escrowAddress, tokenAddress]);
 
 	const pay = useCallback(async () => {
+		if (!escrowContract) return;
 		const result = await escrowContract
 			?.connect(signer as any)
 			.pay(account.address, utils.parseEther(amountToDelivery.toString()));
@@ -70,14 +78,29 @@ const CardCheckoutProduct: React.FC<CardCheckoutProductProps> = ({
 	}, [escrowAddress, tokenAddress]);
 
 	const hasPayEscrow = useCallback(async () => {
+		if (!escrowContract) return;
 		const result = await escrowContract?.status();
 		setHasPay(result);
 		return result;
-	}, [escrowAddress, tokenAddress]);
+	}, [escrowAddress]);
+
+	const buyer = useCallback(async () => {
+		if (!escrowContract) return;
+		const result = await escrowContract?.buyer();
+		if (result === account.address) {
+			setIsBuyer(true);
+		}
+		return result;
+	}, [escrowAddress]);
 
 	useEffect(() => {
 		hasPayEscrow();
-	}, [escrowAddress, tokenAddress]);
+		buyer();
+	}, [escrowAddress]);
+
+	const handleRemove = () => {
+		removeProduct(product.id);
+	};
 
 	const handlePay = async () => {
 		console.log('paying');
@@ -123,6 +146,18 @@ const CardCheckoutProduct: React.FC<CardCheckoutProductProps> = ({
 									) : (
 										<span className='text-lg'>Pagar</span>
 									)}
+								</button>
+							</div>
+						) : !isBuyer ? (
+							<div className='flex gap-2'>
+								<div className='relative inline-flex md:text-lg items-center justify-center px-5 py-2 font-medium rounded-lg font-breul bg-gradient-to-br from-purple-600 to-blue-500  hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 select-none hover:bg-opacity-80'>
+									Ya ha sido comprado
+								</div>
+								<button
+									onClick={handleRemove}
+									className='relative inline-flex md:text-lg items-center justify-center px-2 py-2 font-medium rounded-lg font-breul bg-gradient-to-br from-orange-500 to-pink-500  hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 select-none hover:bg-opacity-80'
+								>
+									<TrashIcon className='h-7 w-7' />
 								</button>
 							</div>
 						) : (

@@ -2,10 +2,11 @@ import { useCart } from '@/hooks/useCart';
 import { PrivateRoutes, PublicRoutes } from '@/models';
 import { AppStore } from '@/redux/store';
 import { TrashIcon } from '@radix-ui/react-icons';
-import { BsCart3 } from 'react-icons/bs';
 import React, { ReactNode } from 'react';
+import { BsCart3 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Connector, useAccount, useConnect } from 'wagmi';
 import {
 	Sheet,
 	SheetContent,
@@ -15,13 +16,13 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from './Sheet';
-import { Connector, useAccount, useConnect } from 'wagmi';
 
 interface SheetCartProps {
 	children: ReactNode;
+	onCloseMenu?: () => void;
 }
 
-const SheetCart: React.FC<SheetCartProps> = ({ children }) => {
+const SheetCart: React.FC<SheetCartProps> = ({ children, onCloseMenu }) => {
 	const { removeProduct, resetCart } = useCart();
 	const { cart } = useSelector((store: AppStore) => store.cart);
 	const account = useAccount();
@@ -110,6 +111,7 @@ const SheetCart: React.FC<SheetCartProps> = ({ children }) => {
 								{account.isConnected ? (
 									<Link
 										to={`${PrivateRoutes.ROOT}${PrivateRoutes.CHECKOUT}`}
+										onClick={onCloseMenu}
 										className={
 											'flex items-center justify-center w-2/3 px-4 py-2 text-sm font-medium text-white bg-rose-600 bg-opacity-100 border border-transparent rounded-md shadow-sm hover:bg-rose-600/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary disabled:pointer-events-none data-[state=open]:bg-orange-600'
 										}
