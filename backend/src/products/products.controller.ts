@@ -17,7 +17,7 @@ import * as fs from "fs";
 import path from "path";
 import { ethers, Wallet, utils, providers } from "ethers";
 const tokenAddress = "0xC7932824AdF77761CaB1988e6B886eEe90D35666";
-const factoryAddress = "0xeb458FE906AECa51eF2122eddE7Fc0E48B7FC37a";
+const factoryAddress = "0x5B372b2e4Db71DD40B41a008A9C0FE7d8CCC8f8D";//"0xeb458FE906AECa51eF2122eddE7Fc0E48B7FC37a";
 import  {abi} from "./EscrowFactory"
 import { products } from "./EscrowFactory";
 
@@ -97,8 +97,8 @@ const signer = new Wallet(process.env.PRIVATE_KEY_MARKETPLACE);
         return;
       }
   const array =  
-  "0x626166796265696479703574633676666a73697337727a696f6b346f366a3663"
-
+  ["mmm", "dvcwe"]
+    
       const escrow = await factory
         .connect(wallet)
         .createEscrow(
@@ -115,12 +115,13 @@ const signer = new Wallet(process.env.PRIVATE_KEY_MARKETPLACE);
             ipfsHash: array,
             category: body.category,
             image: imageUrl,
-          }
-        );
-      console.log(escrow);
-    }, 2000);
+          } 
+        ); 
+      // console.log(escrow);
+     }, 2000); 
   }
-
+  // .catch(){}
+  
   createEscrow(imageUrl)
   return await this.productsService.createProduct(body);
 }

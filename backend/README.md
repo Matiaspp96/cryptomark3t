@@ -1,16 +1,21 @@
+npm install
+npm start
+
 http://localhost:3005/api#/
 
 or
 
+https://api.0xlean.tech/api
 
-http://3.137.166.8:3005/api#/
+https://api.0xlean.tech/products
 
-npm install
-npm start
+https://api.0xlean.tech/users
+
+https://api.0xlean.tech/auth/login
+
+https://api.0xlean.tech/auth/register
+
 
 ![Alt text](swagger.png)
 ![Alt text](fullProduct.png)
-
-
-add localidad
-
+![Alt text](products.png)
