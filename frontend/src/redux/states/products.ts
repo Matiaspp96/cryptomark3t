@@ -15,6 +15,7 @@ interface initialProductsProps {
     maxPrice: {
         [key: string]: string
     }
+    searchQuery: string
 }
 
 export const initialProducts: initialProductsProps = {
@@ -31,6 +32,7 @@ export const initialProducts: initialProductsProps = {
     maxPrice: {
         'all': '0',
     },
+    searchQuery: '',
 };
 
 export const productsSlice = createSlice({
@@ -58,6 +60,9 @@ export const productsSlice = createSlice({
         setMaxPriceByCategory: (state, action) => {
             return { ...state, maxPrice: action.payload }
         },
+        searchProducts: (state, action) => {
+            return { ...state, searchQuery: action.payload }
+        },
         loading: (state, action) => {
             return { ...state, loading: action.payload }
         },
@@ -67,6 +72,6 @@ export const productsSlice = createSlice({
     }
 });
 
-export const { getProducts, getProduct, loading, error, filterProductsByCategory, filterProductsByMinPrice, filterProductsByRating, sortProductsBy, setMaxPriceByCategory } = productsSlice.actions;
+export const { getProducts, getProduct, loading, error, filterProductsByCategory, filterProductsByMinPrice, filterProductsByRating, sortProductsBy, setMaxPriceByCategory, searchProducts } = productsSlice.actions;
 
 export default productsSlice.reducer;

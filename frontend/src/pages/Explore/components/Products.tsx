@@ -11,17 +11,26 @@ import { Link } from 'react-router-dom';
 export type ProductsProps = {};
 
 const Products: React.FC<ProductsProps> = () => {
-	const { products } = useSelector((store: AppStore) => store.products);
+	const { products, searchQuery } = useSelector(
+		(store: AppStore) => store.products
+	);
 
 	const { filterProducts } = useFilters();
 	const { sortProducts } = useSorts();
 
+	const { walletAddress } = useSelector((store: AppStore) => store.user);
+
 	const filteredProducts = filterProducts(products);
 	const sortedProducts = sortProducts(filteredProducts);
+	const searchedProducts = sortedProducts.filter(
+		product =>
+			product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+			product.description.toLowerCase().includes(searchQuery.toLowerCase())
+	);
 
 	return (
 		<ul className='max-w-screen-2xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto gap-5'>
-			{sortedProducts.map(product => {
+			{searchedProducts.map(product => {
 				return (
 					<li
 						key={product.id}
@@ -75,7 +84,16 @@ const Products: React.FC<ProductsProps> = () => {
 							</div>
 							<div className='flex items-center justify-between mt-2'>
 								<p className='text-md font-bold relative '>$ {product.price}</p>
-								<button className='bg-zinc-900 font-breul text-white px-3 py-1 rounded-md hover:bg-zinc-600 transition duration-300'>
+								<button
+									className='bg-zinc-900 font-breul text-white px-3 py-1 rounded-md hover:bg-zinc-600 transition duration-300'
+									onClick={() => {
+										if (walletAddress) {
+											console.log('add to cart');
+										} else {
+											console.log('login');
+										}
+									}}
+								>
 									Add to cart
 								</button>
 							</div>

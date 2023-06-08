@@ -2,6 +2,7 @@ import { selectMaxPriceByCategory } from '@/redux/selector/maxPriceByCategory';
 import {
 	filterProductsByCategory,
 	filterProductsByMinPrice,
+	searchProducts,
 } from '@/redux/states/products';
 import { AppStore } from '@/redux/store';
 import { capitalizeFirstLetter } from '@/utilities/utils';
@@ -28,9 +29,14 @@ export default function Filter() {
 		dispatch(filterProductsByCategory('all'));
 	};
 
+	const resetSearchQuery = () => {
+		dispatch(searchProducts(''));
+	};
+
 	const handleCategoryChange = (e: string) => {
 		if (e === 'all') {
 			resetCategories();
+			resetSearchQuery();
 			return;
 		}
 		setCategory(e);

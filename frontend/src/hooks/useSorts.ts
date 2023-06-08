@@ -10,7 +10,6 @@ export function useSorts() {
         return products.sort((a, b) => {
             if (filter.sort === SortBy.LOWEST) {
                 if (a.price && b.price) {
-                    console.log(a.price, b.price)
                     return a.price > b.price ? 1 : -1
                 }
             } else if (filter.sort === SortBy.HIGHEST) {

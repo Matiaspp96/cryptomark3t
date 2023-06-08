@@ -64,8 +64,6 @@ export const NavBar: React.FC = () => {
 	const navBar = useRef<HTMLDivElement>(null);
 	const router = useLocation();
 
-	console.log(router.pathname === PublicRoutes.ROOT);
-
 	// const handleNav = () => {
 	// 	setNav(!nav);
 	// };

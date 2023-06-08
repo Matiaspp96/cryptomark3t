@@ -10,10 +10,11 @@ import {
 } from '@/components/UI/Accordion/Accordion';
 import { PublicRoutes } from '@/models';
 import { LockClosedIcon } from '@radix-ui/react-icons';
-import { motion } from 'framer-motion';
-import React from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useRef } from 'react';
 import { HiOutlineMicrophone } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
+import { staggerContainer, truckVariants } from './utils/framer';
 
 export type HomeProps = {};
 
@@ -38,17 +39,27 @@ const Home: React.FC<HomeProps> = () => {
 	// }
 	// };
 
+	const ref = useRef<HTMLDivElement>(null);
+	const { scrollYProgress: scrollYProgressHero } = useScroll({
+		target: ref,
+	});
+	const scale = useTransform(scrollYProgressHero, [0, 0.5], [1, 0.8]);
+	const position = useTransform(scrollYProgressHero, pos =>
+		pos >= 1 ? 'relative' : 'block'
+	);
+
 	return (
-		<div className='w-screen md:container mx-auto px-4'>
+		<div className='w-screen md:container mx-auto px-4 '>
 			<main className='py-8'>
 				<motion.div
+					ref={ref}
 					initial={{ opacity: 0, y: 50 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 1 }}
-					className='flex flex-col md:flex-row h-[600px] items-center justify-between'
+					className='flex flex-col lg:h-[780px] lg:flex-row items-center justify-between '
 					id='home'
 				>
-					<div className='md:w-1/2 text-center md:text-start'>
+					<div className='lg:w-1/2 text-center lg:text-start'>
 						<h2 className='font-breul text-4xl md:text-[64px] leading-none font-bold mb-4'>
 							La plataforma segura para
 							<span className='bg-clip-text text-transparent bg-gradient-to-br from-purple-600 to-blue-500'>
@@ -70,28 +81,38 @@ const Home: React.FC<HomeProps> = () => {
 							</Link>
 						</div>
 					</div>
-					<img
-						src={ShopImg}
-						alt='Online Shoping'
-						className='md:w-[600px] md:h-[600px] object-contain mt-[-100px]'
-					/>
+					<motion.figure style={{ scale, position }}>
+						<img
+							src={ShopImg}
+							alt='Online Shoping'
+							className='md:w-[600px] md:h-[600px] object-contain md:mt-[-100px]'
+						/>
+					</motion.figure>
 				</motion.div>
 
 				{/* Sección Acerca de */}
-				<section className='py-8 flex flex-col-reverse md:flex-row justify-between'>
-					<img
+				<motion.div
+					variants={staggerContainer()}
+					initial='hidden'
+					whileInView='show'
+					viewport={{ once: false, amount: 0.25 }}
+					className='py-8 flex flex-col-reverse lg:flex-row justify-between items-center'
+				>
+					<motion.img
+						variants={truckVariants('left')}
 						src={OnlineShopingImg}
 						alt='Online Shoping'
-						className='md:w-[600px] md:h-[600px] object-contain md:mt-[-100px]'
+						className='md:w-[600px] md:h-[600px] object-contain lg:mt-[-100px]'
 					/>
-					<div className='flex flex-col text-center md:w-1/2 justify-center'>
+
+					<div className='flex flex-col text-center lg:w-1/2 justify-center'>
 						<h3 className='text-3xl font-breul font-bold mb-4'>
 							Acerca de{' '}
 							<span className='bg-clip-text text-transparent bg-gradient-to-br from-purple-600 to-blue-500'>
 								CryptoMark3t
 							</span>
 						</h3>
-						<p className='text-lg md:text-xl font-montserrat md:text-end'>
+						<p className='text-lg md:text-xl font-montserrat lg:text-end'>
 							CryptoMark3t es un mercado web3 que permite a los usuarios comprar
 							y vender productos utilizando criptomonedas. Estamos abordando una
 							alternativa a las opciones de pago existentes y mejorando la falta
@@ -99,15 +120,15 @@ const Home: React.FC<HomeProps> = () => {
 							más segura y descentralizada.
 						</p>
 					</div>
-				</section>
+				</motion.div>
 
 				{/* Sección Cómo funciona */}
-				<section className='py-8 flex flex-col md:flex-row justify-between'>
-					<div className='flex flex-col text-center md:w-1/2 justify-center'>
+				<section className='py-8 flex flex-col lg:flex-row justify-between items-center'>
+					<div className='flex flex-col text-center lg:w-1/2 justify-center'>
 						<h3 className='text-2xl font-breul font-bold mb-4'>
 							¿Cómo funciona CryptoMark3t?
 						</h3>
-						<p className='text-lg md:text-xl font-montserrat md:text-start'>
+						<p className='text-lg md:text-xl font-montserrat lg:text-start'>
 							CryptoMark3t utiliza un protocolo de smart contracts (Escrow) con
 							múltiples validaciones para garantizar la confianza en el proceso
 							de transacción. El comprador solo completará la transacción una
@@ -130,9 +151,9 @@ const Home: React.FC<HomeProps> = () => {
 						<h3 className='text-2xl font-breul font-bold mb-8'>
 							Características principales
 						</h3>
-						<div className='flex flex-col md:flex-row justify-center gap-5 md:gap-16'>
-							<div className='hover:bg-gradient-to-r rounded-xl from-pink-700 via-pink-800 to-pink-700 py-1 transition-all ease-in duration-100'>
-								<div className='w-full h-full md:max-w-md p-4 bg-[#090918] shadow-lg drop-shadow-2xl hover:brightness-110  shadow-[#141829] rounded-xl md:w-96 md:h-64 flex flex-col gap-5'>
+						<div className='flex flex-col justify-center gap-2 xl:gap-16 md:flex-row'>
+							<div className='md:w-1/3 hover:bg-gradient-to-r rounded-xl from-pink-700 via-pink-800 to-pink-700 py-1 transition-all ease-in duration-100 lg:w-min xl:w-min'>
+								<div className='w-full h-full lg:max-w-md p-4 bg-[#090918] shadow-lg drop-shadow-2xl hover:brightness-110  shadow-[#141829] rounded-xl lg:w-96 lg:h-64 flex flex-col gap-5'>
 									<div className='flex items-center justify-center'>
 										<LockClosedIcon className='w-16 h-20 text-white mx-auto' />
 									</div>
@@ -148,8 +169,8 @@ const Home: React.FC<HomeProps> = () => {
 									</div>
 								</div>
 							</div>
-							<div className='hover:bg-gradient-to-r rounded-xl from-pink-700 via-pink-800 to-pink-700 py-1 transition-all ease-in duration-100'>
-								<div className='w-full h-full md:max-w-md p-4 bg-[#090918] shadow-lg drop-shadow-2xl hover:brightness-110  shadow-[#141829] rounded-xl md:w-96 md:h-64 flex flex-col gap-5'>
+							<div className='md:w-1/3 hover:bg-gradient-to-r rounded-xl from-pink-700 via-pink-800 to-pink-700 py-1 transition-all ease-in duration-100 lg:w-min xl:w-min'>
+								<div className='w-full h-full lg:max-w-md p-4 bg-[#090918] shadow-lg drop-shadow-2xl hover:brightness-110  shadow-[#141829] rounded-xl lg:w-96 lg:h-64 flex flex-col gap-5'>
 									<div className='flex items-center justify-center'>
 										<img
 											src={StablesCoins}
@@ -170,8 +191,8 @@ const Home: React.FC<HomeProps> = () => {
 								</div>
 							</div>
 
-							<div className='hover:bg-gradient-to-r rounded-xl from-pink-700 via-pink-800 to-pink-700 py-1 transition-all ease-in duration-100'>
-								<div className='w-full h-full md:max-w-md p-4 bg-[#090918] shadow-lg drop-shadow-2xl hover:brightness-110  shadow-[#141829] rounded-xl md:w-96 md:h-64 flex flex-col gap-5'>
+							<div className='md:w-1/3 hover:bg-gradient-to-r rounded-xl from-pink-700 via-pink-800 to-pink-700 py-1 transition-all ease-in duration-100 lg:w-min xl:w-min'>
+								<div className='w-full h-full lg:max-w-md p-4 bg-[#090918] shadow-lg drop-shadow-2xl hover:brightness-110  shadow-[#141829] rounded-xl lg:w-96 lg:h-64 flex flex-col gap-5'>
 									<div className='flex items-center justify-center'>
 										<HiOutlineMicrophone className='w-16 h-20 text-white mx-auto' />
 									</div>
@@ -223,8 +244,8 @@ const Home: React.FC<HomeProps> = () => {
 				<section className='py-8'>
 					<div className='flex justify-center flex-col items-center text-start'>
 						<h3 className='text-2xl font-bold mb-4'>Preguntas frecuentes</h3>
-						<Accordion type='multiple' className='w-1/2 text-lg'>
-							<AccordionItem value='item-1'>
+						<Accordion type='multiple' className='w-full xl:w-1/2 text-lg'>
+							<AccordionItem value='item-1' className='border-pink-800'>
 								<AccordionTrigger className='text-start'>
 									¿Cuáles son las criptomonedas aceptadas en CryptoMark3t?
 								</AccordionTrigger>
@@ -233,7 +254,7 @@ const Home: React.FC<HomeProps> = () => {
 									USDC y BUSD.
 								</AccordionContent>
 							</AccordionItem>
-							<AccordionItem value='item-2'>
+							<AccordionItem value='item-2' className='border-pink-800'>
 								<AccordionTrigger className='text-start'>
 									¿Cómo puedo saber si un producto está en buenas condiciones
 									antes de completar la transacción?
@@ -244,7 +265,7 @@ const Home: React.FC<HomeProps> = () => {
 									sobre el estado del producto recibido.
 								</AccordionContent>
 							</AccordionItem>
-							<AccordionItem value='item-3'>
+							<AccordionItem value='item-3' className='border-pink-800'>
 								<AccordionTrigger className='text-start'>
 									¿Ofrecen soporte para usuarios con discapacidades?
 								</AccordionTrigger>
