@@ -25,6 +25,7 @@ const Favorites = lazy(
 );
 const Explore = lazy(async () => await import('@/pages/Explore/Explore.tsx'));
 const Private = lazy(async () => await import('@/pages/Private/Private.tsx'));
+const Publish = lazy(async () => await import('@/pages/Private/Publish/Publish.tsx'));
 const ErrorBoundary = lazy(
 	async () => await import('@/utilities/ErrorBoundary.tsx')
 );
@@ -37,9 +38,12 @@ const router = createBrowserRouter(
 			<Route path={`${PublicRoutes.PRODUCT}/*`} element={<ProductDetail />} />
 			<Route path={PublicRoutes.FAVORITES} element={<Favorites />} />
 			<Route path={PublicRoutes.ABOUT} element={<div>About</div>} />
-			<Route element={<AuthGuard privateValidation={true} />}>
+			<Route path={PublicRoutes.PUBLISH} element={<Publish />} /> //addAuth
+
+
+			<Route element={<AuthGuard privateValidation={true} />}> 
 				<Route path={`${PrivateRoutes.ROOT}/*`} element={<Private />} />
-			</Route>
+			 </Route>
 			<Route path='*' element={<ErrorBoundary />} />
 		</Route>
 	)
