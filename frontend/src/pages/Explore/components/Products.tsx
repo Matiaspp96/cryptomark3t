@@ -21,8 +21,6 @@ const Products: React.FC<ProductsProps> = () => {
 	const { filterProducts } = useFilters();
 	const { sortProducts } = useSorts();
 
-	const { walletAddress } = useSelector((store: AppStore) => store.user);
-
 	const filteredProducts = filterProducts(products);
 	const sortedProducts = sortProducts(filteredProducts);
 	const searchedProducts = sortedProducts.filter(
