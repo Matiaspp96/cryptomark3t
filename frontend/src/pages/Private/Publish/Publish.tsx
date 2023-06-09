@@ -53,16 +53,15 @@ const Publish = () => {
 		formData.append('name', fullName);
 
 		try {
-			const response = await axios.post(
-				'https://api.0xlean.tech/products',
-				formData,
-				{
+			const response = await axios
+				.post('https://api.0xlean.tech/products', formData, {
 					headers: {
 						'Content-Type': 'multipart/form-data',
 					},
-				}
-			);
-			console.log(response.data);
+				})
+				.then(res => console.log(res))
+				.catch(err => console.log(err));
+			console.log(response);
 		} catch (error) {
 			console.error(error);
 		}
