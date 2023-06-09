@@ -48,13 +48,14 @@ const Publish = () => {
 		if (walletAddress !== undefined) {
 			formData.append('file', imggg);
 			formData.append('email', email);
-			formData.append('description', fullName);
+			formData.append('description', email);
 			formData.append('price', phoneNumber);
 			formData.append('category', fullName);
 			formData.append('seller', walletAddress);
 			formData.append('name', fullName);
 		}
 
+		console.log(formData);
 		try {
 			const response = await axios
 				.post('https://api.0xlean.tech/products', formData, {
