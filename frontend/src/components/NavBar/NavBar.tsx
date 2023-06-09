@@ -102,7 +102,7 @@ export const NavBar: React.FC = () => {
 			path: PublicRoutes.EXPLORE,
 		},
 		{
-			name: 'Favorites',
+			name: 'Favoritos',
 			path: PublicRoutes.FAVORITES,
 		},
 	];

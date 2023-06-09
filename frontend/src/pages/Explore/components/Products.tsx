@@ -80,7 +80,7 @@ const Products: React.FC<ProductsProps> = () => {
 									</Link>
 								</div>
 								<div className='flex items-center'>
-									<p className='line-clamp-4'>{product.description}</p>
+									<p className='line-clamp-2'>{product.description}</p>
 								</div>
 							</div>
 							<div className='flex items-center justify-between mt-2'>
@@ -92,7 +92,7 @@ const Products: React.FC<ProductsProps> = () => {
 											addProduct(product);
 										}}
 									>
-										Add to cart
+										Agregar al carrito
 									</button>
 								</SheetCart>
 							</div>

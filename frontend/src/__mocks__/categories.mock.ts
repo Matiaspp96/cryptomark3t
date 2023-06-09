@@ -1,8 +1,8 @@
 export const categories = [
-    "home-decoration",
+    // "home-decoration",
     "laptops",
     "smartphones",
-    "fragrances",
-    "skincare",
-    "groceries"
+    // "fragrances",
+    // "skincare",
+    // "groceries"
 ]

@@ -16,4 +16,5 @@ export type Product = {
     createdAt: Date;
     quantity: number;
     productId: string;
+    escrowAddress: string;
 }

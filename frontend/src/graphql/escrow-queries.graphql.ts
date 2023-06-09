@@ -21,3 +21,22 @@ export const getEscrowByAddressQuery = gql`
         }
     }
 `;
+
+
+export const getProductsBySeller = gql`
+	query GetProductCreateds($product_seller: String!) {
+		escrowCreateds(
+            where: {product_seller: $product_seller}
+          ) {
+            product_isSold
+            product_name
+            product_price
+            product_image
+            product_id
+            product_description
+            product_category
+            escrowAddress
+          }
+	}
+`;
+

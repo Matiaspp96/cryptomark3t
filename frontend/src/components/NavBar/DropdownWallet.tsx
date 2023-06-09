@@ -36,15 +36,15 @@ const DropdownWallet = ({ address }: DropdownProps) => {
 
 	const items = [
 		{
-			label: 'Profile',
+			label: 'Perfil',
 			path: PrivateRoutes.PROFILE,
 		},
 		{
-			label: 'Products',
+			label: 'Productos',
 			path: PrivateRoutes.PRODUCTS,
 		},
 		{
-			label: 'Publish',
+			label: 'Publicar',
 			path: PrivateRoutes.PUBLISH,
 		},
 	];
@@ -92,20 +92,14 @@ const DropdownWallet = ({ address }: DropdownProps) => {
 								})}
 								<SheetCart onCloseMenu={closeMenu}>
 									<button className='text-gray-900 px-2 py-1.5 w-40 rounded text-left text-xl font-breul relative items-center justify-center dark:text-white  hover:bg-zinc-600 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'>
-										Cart
+										Carrito
 									</button>
 								</SheetCart>
 								<button
 									className='text-gray-900 px-2 py-1.5 w-40 rounded text-left text-xl font-breul relative items-center justify-center dark:text-white  hover:bg-zinc-600 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'
-									onClick={closeMenu}
-								>
-									Settings
-								</button>
-								<button
-									className='text-gray-900 px-2 py-1.5 w-40 rounded text-left text-xl font-breul relative items-center justify-center dark:text-white  hover:bg-zinc-600 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'
 									onClick={handleDisconnect}
 								>
-									Disconnect
+									Desconectar
 								</button>
 							</motion.div>
 						</DropdownMenu.Content>
@@ -148,7 +142,10 @@ const Item = ({
 			}}
 			className='flex w-40 select-none rounded px-2 py-1.5 text-gray-700 dark:text-white data-[highlighted]:bg-zinc-500 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'
 		>
-			<Link className='font-breul text-xl' to={`${PrivateRoutes.ROOT}${path}`}>
+			<Link
+				className='font-breul text-xl hover:text-white'
+				to={`${PrivateRoutes.ROOT}${path}`}
+			>
 				{label}
 			</Link>
 		</DropdownMenu.Item>

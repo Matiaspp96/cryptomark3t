@@ -59,7 +59,7 @@ const Checkout = () => {
 
 	return (
 		<div className='container mx-auto px-4 py-6'>
-			<h1 className='text-xl font-bold mb-4 text-center'>
+			<h1 className='text-4xl font-bold mb-4 text-center border-b-2 border-blue-500 w-max mx-auto'>
 				Finalizar <span className='text-blue-500'>Compra</span>
 			</h1>
 			<div className='flex flex-col w-full md:flex-row gap-10'>

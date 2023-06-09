@@ -3,11 +3,12 @@ import TokenABI from '@/assets/abi/Token.json';
 import Spinner from '@/components/Spinner/Spinner';
 import { getEscrowByIdQuery } from '@/graphql';
 import { useCart } from '@/hooks/useCart';
-import { Product } from '@/models';
+import { Product, PublicRoutes } from '@/models';
 import { useQuery } from '@apollo/client';
 import { TrashIcon } from '@radix-ui/react-icons';
 import { utils } from 'ethers';
 import React, { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAccount, useContract, useProvider, useSigner } from 'wagmi';
 
 interface CardCheckoutProductProps {
@@ -25,7 +26,7 @@ const CardCheckoutProduct: React.FC<CardCheckoutProductProps> = ({
 	const [hasPay, setHasPay] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [isBuyer, setIsBuyer] = useState<boolean>(false);
-	const { removeProduct, resetCart } = useCart();
+	const { removeProduct } = useCart();
 
 	const { data, loading: loadingQuery } = useQuery(getEscrowByIdQuery, {
 		variables: { product_id: product.productId },
@@ -128,9 +129,12 @@ const CardCheckoutProduct: React.FC<CardCheckoutProductProps> = ({
 					className='w-36 h-36 rounded-lg object-cover'
 				/>
 				<div className='flex flex-col w-full mx-4 justify-between h-32'>
-					<h3 className='text-2xl font-bold text-foreground w-9/12 font-montserrat'>
+					<Link
+						className='text-2xl font-bold text-foreground w-9/12 font-montserrat'
+						to={`${PublicRoutes.PRODUCT}/${product.id}`}
+					>
 						{product.name}
-					</h3>
+					</Link>
 					<div className='flex flex-row justify-between w-full'>
 						<p className='text-3xl font-bold text-foreground'>
 							${product.price}

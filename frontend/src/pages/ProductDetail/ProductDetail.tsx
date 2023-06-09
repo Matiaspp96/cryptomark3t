@@ -68,7 +68,7 @@ const ProductDetail: React.FC = () => {
 			style={{ backgroundColor: '#27272a' }}
 		>
 			<img
-				className='rounded float-start aspect-video overflow-hidden h-72'
+				className='rounded float-start aspect-video overflow-hidden h-72 object-contain'
 				src={product.image}
 				alt={product.name}
 			/>

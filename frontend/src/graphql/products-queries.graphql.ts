@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
 export const getProductsQuery = gql`
 	query GetProductCreateds {
-		productCreateds {
+		productCreateds(where: { or : [{category: "smartphones"}, 
+		{category: "laptops"}]}) {
 			id
 			productId
 			name
