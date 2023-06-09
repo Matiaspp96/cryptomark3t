@@ -54,7 +54,7 @@ const Publish = () => {
 
 		try {
 			const response = await axios.post(
-				'http://3.137.166.8:3005/products',
+				'https://api.0xlean.tech/products',
 				formData,
 				{
 					headers: {
