@@ -52,7 +52,7 @@ const Profile = () => {
 	return (
 		<div className='max-w-2xl mx-auto px-4 py-6'>
 			<h1 className='text-xl font-bold mb-4 text-center'>
-				Profile <span className='text-blue-500'>Settings</span>
+				Perfil de <span className='text-blue-500'>Usuario</span>
 			</h1>
 			<form className='' onSubmit={handleSubmit}>
 				<div className='flex justify-center mb-6'>
@@ -85,11 +85,11 @@ const Profile = () => {
 				</div>
 				<div className='grid grid-cols-2 gap-5 mb-10'>
 					<h3 className='col-span-2 text-md font-bold text-center'>
-						General <span className='text-blue-500'>Information</span>
+						Información <span className='text-blue-500'>General</span>
 					</h3>
 					<div className='flex flex-col gap-1'>
 						<label className='font-breul  font-bold text-white'>
-							Full Name:
+							Nombre Completo:
 						</label>
 						<input
 							type='text'
@@ -100,7 +100,7 @@ const Profile = () => {
 					</div>
 					<div className='flex flex-col gap-1'>
 						<label className='font-breul  font-bold text-white'>
-							Birthdate:
+							Fecha de Nacimiento:
 						</label>
 						<input
 							type='date'
@@ -120,7 +120,7 @@ const Profile = () => {
 					</div>
 					<div className='flex flex-col gap-1'>
 						<label className='font-breul  font-bold text-white'>
-							Phone Number:
+							Numero de Telefono:
 						</label>
 						<input
 							type='tel'
@@ -131,7 +131,7 @@ const Profile = () => {
 					</div>
 				</div>
 				<h3 className='col-span-2 text-md font-bold text-center mb-5'>
-					Address <span className='text-blue-500 '>Information</span>
+					Información <span className='text-blue-500'>de Envio</span>
 				</h3>
 				<div className='aspect-video mb-5'>
 					<MapComponent
@@ -146,7 +146,7 @@ const Profile = () => {
 				<div className='grid grid-cols-2 gap-5'>
 					<div className='flex flex-col gap-1'>
 						<label className='font-breul  font-bold text-white'>
-							Street Address:
+							Dirección:
 						</label>
 						<input
 							type='text'
@@ -157,7 +157,7 @@ const Profile = () => {
 					</div>
 
 					<div className='flex flex-col gap-1'>
-						<label className='font-breul  font-bold text-white'>City:</label>
+						<label className='font-breul  font-bold text-white'>Ciudad:</label>
 						<input
 							type='text'
 							className='border border-gray-400 p-2 rounded-lg focus:outline-none focus:border-blue-500'
@@ -168,7 +168,7 @@ const Profile = () => {
 
 					<div className='flex flex-col gap-1'>
 						<label className='font-breul  font-bold text-white'>
-							Province:
+							Provincia:
 						</label>
 						<input
 							type='text'
@@ -180,7 +180,7 @@ const Profile = () => {
 
 					<div className='flex flex-col gap-1'>
 						<label className='font-breul  font-bold text-white'>
-							Zip Code:
+							Código Postal:
 						</label>
 						<input
 							type='text'
@@ -191,7 +191,7 @@ const Profile = () => {
 					</div>
 
 					<div className='flex flex-col gap-1'>
-						<label className='font-breul  font-bold text-white'>Country:</label>
+						<label className='font-breul  font-bold text-white'>País:</label>
 						<input
 							type='text'
 							className='border border-gray-400 p-2 rounded-lg focus:outline-none focus:border-blue-500'
@@ -204,7 +204,7 @@ const Profile = () => {
 					className='mt-8 bg-blue-500 text-white rounded-lg py-2 px-4'
 					type='submit'
 				>
-					Save Changes
+					Actualizar
 				</button>
 			</form>
 		</div>

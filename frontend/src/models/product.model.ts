@@ -1,4 +1,4 @@
-import { Transaction, User } from '.';
+import { Transaction } from '.';
 
 export type Product = {
     id: number;
@@ -8,10 +8,13 @@ export type Product = {
     description: string;
     rating: number;
     isSold: boolean;
-    seller: User | string;
+    seller: string;
     transactions: Transaction[];
     stateTransaction: string;
     image: string;
     images: string[];
     createdAt: Date;
+    quantity: number;
+    productId: string;
+    escrowAddress: string;
 }

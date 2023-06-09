@@ -12,4 +12,5 @@ export const PrivateRoutes = {
     PUBLISH: '/publish',
     PROFILE: '/profile',
     PRODUCTS: '/products',
+    CHECKOUT: '/checkout',
 }

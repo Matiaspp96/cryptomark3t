@@ -2,18 +2,20 @@ import { PrivateRoutes, PublicRoutes } from '@/models';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDisconnect } from 'wagmi';
+import SheetCart from '../UI/Sheet/SheetCart';
 
 interface DropdownProps {
 	address?: string;
 }
 
-const Dropdown = ({ address }: DropdownProps) => {
+const DropdownWallet = ({ address }: DropdownProps) => {
 	const [open, setOpen] = useState(false);
 	const { disconnect } = useDisconnect();
 	const navigate = useNavigate();
 	const controls = useAnimationControls();
+	const router = useLocation();
 
 	async function closeMenu() {
 		await controls.start('closed');
@@ -30,19 +32,19 @@ const Dropdown = ({ address }: DropdownProps) => {
 		if (open) {
 			controls.start('open');
 		}
-	}, [controls, open]);
+	}, [controls, open, router.pathname]);
 
 	const items = [
 		{
-			label: 'Profile',
+			label: 'Perfil',
 			path: PrivateRoutes.PROFILE,
 		},
 		{
-			label: 'Products',
+			label: 'Productos',
 			path: PrivateRoutes.PRODUCTS,
 		},
 		{
-			label: 'Publish',
+			label: 'Publicar',
 			path: PrivateRoutes.PUBLISH,
 		},
 	];
@@ -76,20 +78,28 @@ const Dropdown = ({ address }: DropdownProps) => {
 										transition: { ease: 'easeIn', duration: 0.2 },
 									},
 								}}
+								className='flex flex-col'
 							>
-								{items.map(({ label, path }, index) => (
-									<Item
-										closeMenu={closeMenu}
-										path={path}
-										key={index}
-										label={label}
-									/>
-								))}
+								{items.map(({ label, path }, index) => {
+									return (
+										<Item
+											closeMenu={closeMenu}
+											path={path}
+											label={label}
+											key={index}
+										/>
+									);
+								})}
+								<SheetCart onCloseMenu={closeMenu}>
+									<button className='text-gray-900 px-2 py-1.5 w-40 rounded text-left text-xl font-breul relative items-center justify-center dark:text-white  hover:bg-zinc-600 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'>
+										Carrito
+									</button>
+								</SheetCart>
 								<button
 									className='text-gray-900 px-2 py-1.5 w-40 rounded text-left text-xl font-breul relative items-center justify-center dark:text-white  hover:bg-zinc-600 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'
 									onClick={handleDisconnect}
 								>
-									Disconnect
+									Desconectar
 								</button>
 							</motion.div>
 						</DropdownMenu.Content>
@@ -104,18 +114,15 @@ const Item = ({
 	label,
 	path,
 	closeMenu,
-	key,
 }: {
 	label: string;
 	path: string;
 	closeMenu: () => void;
-	key: string | number;
 }) => {
 	const controls = useAnimationControls();
 
 	return (
 		<DropdownMenu.Item
-			key={key}
 			onSelect={async (e: any) => {
 				e.preventDefault();
 
@@ -135,7 +142,10 @@ const Item = ({
 			}}
 			className='flex w-40 select-none rounded px-2 py-1.5 text-gray-700 dark:text-white data-[highlighted]:bg-zinc-500 data-[highlighted]:text-white data-[highlighted]:focus:outline-none'
 		>
-			<Link className='font-breul text-xl' to={`${PrivateRoutes.ROOT}${path}`}>
+			<Link
+				className='font-breul text-xl hover:text-white'
+				to={`${PrivateRoutes.ROOT}${path}`}
+			>
 				{label}
 			</Link>
 		</DropdownMenu.Item>
@@ -145,4 +155,4 @@ const Item = ({
 const sleep = (s: number) =>
 	new Promise(resolve => setTimeout(resolve, s * 1000));
 
-export default Dropdown;
+export default DropdownWallet;

@@ -5,8 +5,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { Connector, useAccount, useClient, useConnect } from 'wagmi';
-import Dropdown from './Dropdown';
 import SearchBar from '../SearchBar/SearchBar';
+import DropdownWallet from './DropdownWallet';
 
 const Profile: React.FC = () => {
 	const dispatch = useDispatch();
@@ -26,7 +26,6 @@ const Profile: React.FC = () => {
 
 	const userInfo = useCallback(async () => {
 		const user = await getUserInfo();
-		console.log(user);
 		return user;
 	}, [client, address]);
 
@@ -42,7 +41,7 @@ const Profile: React.FC = () => {
 	}, [isConnected]);
 
 	if (isConnected) {
-		return <Dropdown address={address} />;
+		return <DropdownWallet address={address} />;
 	} else {
 		return (
 			<button
@@ -50,7 +49,7 @@ const Profile: React.FC = () => {
 				onClick={() => handleConnect(connectorWallet)}
 			>
 				<span className='relative px-4 py-2 transition-all ease-in duration-100 bg-white dark:bg-zinc-800 rounded-md group-hover:bg-opacity-0 font-breul text-base xl:text-lg'>
-					Connect Wallet
+					Conectar Wallet
 				</span>
 			</button>
 		);
@@ -93,6 +92,21 @@ export const NavBar: React.FC = () => {
 		}
 	}, [scroll]);
 
+	const routes = [
+		{
+			name: 'Home',
+			path: PublicRoutes.ROOT,
+		},
+		{
+			name: 'Marketplace',
+			path: PublicRoutes.EXPLORE,
+		},
+		{
+			name: 'Favoritos',
+			path: PublicRoutes.FAVORITES,
+		},
+	];
+
 	return (
 		<div
 			ref={navBar}
@@ -108,15 +122,11 @@ export const NavBar: React.FC = () => {
 				</Link>
 				{router.pathname === PublicRoutes.EXPLORE && <SearchBar />}
 				<ul className='hidden md:flex gap-2 justify-between list-none items-center h-full'>
-					<li className='font-breul text-xl'>
-						<Link to={PublicRoutes.ROOT}>Home</Link>
-					</li>
-					<li className='font-breul text-xl'>
-						<Link to={PublicRoutes.EXPLORE}>Marketplace</Link>
-					</li>
-					<li className='font-breul text-xl'>
-						<Link to={PublicRoutes.FAVORITES}>Favorites</Link>
-					</li>
+					{routes.map((route, index) => (
+						<li key={index} className='font-breul text-xl'>
+							<Link to={route.path}>{route.name}</Link>
+						</li>
+					))}
 					<Profile />
 				</ul>
 			</div>

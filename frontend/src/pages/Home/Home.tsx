@@ -64,7 +64,7 @@ const Home: React.FC<HomeProps> = () => {
 							La plataforma segura para
 							<span className='bg-clip-text text-transparent bg-gradient-to-br from-purple-600 to-blue-500'>
 								{' '}
-								comprar y vender{' '}
+								comprar y vender productos{' '}
 							</span>
 							con criptomonedas
 						</h2>
