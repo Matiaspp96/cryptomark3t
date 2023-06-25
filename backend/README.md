@@ -5,15 +5,15 @@ http://localhost:3005/api#/
 
 or
 
-https://api.0xlean.tech/api
+https://cryotomarket.onrender.com/api/api
 
-https://api.0xlean.tech/products
+https://cryotomarket.onrender.com/api/products
 
-https://api.0xlean.tech/users
+https://cryotomarket.onrender.com/api/users
 
-https://api.0xlean.tech/auth/login
+https://cryotomarket.onrender.com/api/auth/login
 
-https://api.0xlean.tech/auth/register
+https://cryotomarket.onrender.com/api/auth/register
 
 
 ![Alt text](swagger.png)
