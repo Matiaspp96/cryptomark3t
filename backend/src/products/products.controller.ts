@@ -35,6 +35,7 @@ export class ProductsController {
   @Post()
 @UseInterceptors(FileInterceptor("file"))
 async createProduct(
+
   @UploadedFile() file: Express.Multer.File,
   @Body() body: CreateProductDto
 ): Promise<Product> {
@@ -71,15 +72,13 @@ async createProduct(
   // console.log(body)
 
   async function createEscrow(imageUrl) {
-
-   
+try {
 const signer = new Wallet(process.env.PRIVATE_KEY_MARKETPLACE);
     const provider = new ethers.providers.AlchemyProvider(80001, process.env.API_KEY_ALCHEMY)
     const wallet = new ethers.Wallet(process.env.PRIVATE_KEY_MARKETPLACE,  provider);
     const factory =  new ethers.Contract(factoryAddress, abi, signer);
     console.log(factory)
-   
-
+  
     // const escrow = await factory.createEscrow(
     //   PUBLIC_KEY_SELLER,
     //   utils.parseEther("100"),
@@ -87,7 +86,6 @@ const signer = new Wallet(process.env.PRIVATE_KEY_MARKETPLACE);
     //   products
     // );
     // console.log(escrow);
-   
   
     let i = -1;
     const interval = setInterval(async () => {
@@ -119,10 +117,12 @@ const signer = new Wallet(process.env.PRIVATE_KEY_MARKETPLACE);
         ); 
       // console.log(escrow);
      }, 2000); 
-  }
-  // .catch(){}
+  } catch (err) {
+    console.error("error handle a escrow", err)
+}
+}
   
   createEscrow(imageUrl)
   return await this.productsService.createProduct(body);
-}
+} 
 }
