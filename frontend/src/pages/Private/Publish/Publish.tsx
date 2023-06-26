@@ -1,18 +1,18 @@
 import ProfileVector from '@/assets/img/picture-profile-icon.webp';
-import { postUserApi } from '@/services/public.services';
+// import { postUserApi } from '@/services/public.services';
 import { UploadIcon } from '@radix-ui/react-icons';
 import { Icon } from '@radix-ui/react-select';
 import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
-import { useAccount } from 'wagmi';
+// import { useAccount } from 'wagmi';
 import imggg from "../../../assets/img/Boxes.png"
 // import MapComponent from '../Profile/components/MapComponent';
 
 const Publish = () => {
-	const { address: walletAddress } = useAccount();
+	// const { address: walletAddress } = useAccount();
 	const [profileImage, setProfileImage] = useState<File | null>(null);
-	const [fullName, setFullName] = useState('Notebook I9');
+	const [fullName, setFullName] = useState('Notebook I911');
 	// const [birthdate, setBirthdate] = useState('');
 	const [email, setEmail] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('');
@@ -47,14 +47,15 @@ const Publish = () => {
         const formData = new FormData();
         formData.append('file', imggg);
         formData.append('email', email);
-        formData.append('description', fullName);
-		formData.append('price', email);
+        formData.append('description', "1");
+		formData.append('price', "111");
         formData.append('category', fullName);
-		formData.append('seller', email);
+		formData.append('seller', "0xb67A27ee94fFB901e26795C9bbC43B9692169c88");
         formData.append('name', fullName);
 
         try {
-            const response = await axios.post('http://3.137.166.8:3005/products', formData, {
+            // const response = await axios.post('http://3.137.166.8:3005/products', formData, {
+				const response = await axios.post('https://api.0xlean.tech/products', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
